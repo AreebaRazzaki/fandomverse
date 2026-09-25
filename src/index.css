@@ -1,0 +1,16 @@
+html {
+  background: #0c0b0e;
+}
+
+body {
+  margin: 0;
+  background: #0c0b0e;
+  font-family: Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
