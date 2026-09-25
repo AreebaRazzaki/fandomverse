@@ -13,9 +13,29 @@ const palettes = {
     dark: { '--nav-ink': '#d6d3cb', '--nav-muted': '#85837d', '--nav-accent': '#c5962e' },
     light: { '--nav-ink': '#252628', '--nav-muted': '#60615f', '--nav-accent': '#aa7711' },
   },
+  comics: {
+    dark: { '--nav-ink': '#fff1e7', '--nav-muted': '#c5b3a8', '--nav-accent': '#ff7b32' },
+    light: { '--nav-ink': '#2d2928', '--nav-muted': '#746c67', '--nav-accent': '#d65b20' },
+  },
   gaming: {
     dark: { '--nav-ink': '#ffe0f0', '--nav-muted': '#efb1cd', '--nav-accent': '#ff4da4' },
     light: { '--nav-ink': '#42102a', '--nav-muted': '#6b2849', '--nav-accent': '#a81760' },
+  },
+  kpop: {
+    dark: { '--nav-ink': '#f1f7fb', '--nav-muted': '#a7b8c5', '--nav-accent': '#70d9ef' },
+    light: { '--nav-ink': '#1c2a37', '--nav-muted': '#52616d', '--nav-accent': '#17698e' },
+  },
+  manga: {
+    dark: { '--nav-ink': '#fbf5f0', '--nav-muted': '#e9d7e5', '--nav-accent': '#e0b3da' },
+    light: { '--nav-ink': '#33283d', '--nav-muted': '#60496c', '--nav-accent': '#805b99' },
+  },
+  tvshows: {
+    dark: { '--nav-ink': '#f4eeee', '--nav-muted': '#aaa3a4', '--nav-accent': '#d9343b' },
+    light: { '--nav-ink': '#252326', '--nav-muted': '#686266', '--nav-accent': '#a9262e' },
+  },
+  movies: {
+    dark: { '--nav-ink': '#e9f5ef', '--nav-muted': '#9bb9ad', '--nav-accent': '#70c6ae' },
+    light: { '--nav-ink': '#1d3935', '--nav-muted': '#58706a', '--nav-accent': '#2f8979' },
   },
 };
 
@@ -30,7 +50,7 @@ function SiteNav({ theme, setTheme, active = 'home', variant = 'home' }) {
 
   return (
     <nav className={`universal-nav universal-nav-${variant}`} style={palette} aria-label="Main navigation">
-      <a className="universal-brand" href="#home" aria-label="Fandomverse home"><span className="universal-brand-mark" aria-hidden="true" /><span>FANDOMVERSE</span></a>
+      <a className="universal-brand" href="#home" aria-label="Fandomverse home"><img src="/assets/images/logo.png" alt="" /><span>FANDOMVERSE</span></a>
       <div className="universal-nav-links">
         <a className={`universal-nav-link ${active === 'home' ? 'is-active' : ''}`} href="#home">Home</a>
         <div className="universal-nav-menu">
@@ -42,6 +62,8 @@ function SiteNav({ theme, setTheme, active = 'home', variant = 'home' }) {
           {openMenu === 'discover' && <div className="universal-dropdown universal-discover-dropdown">{discoverLinks.map((item) => <a href={linkId(item)} key={item}>{item}</a>)}</div>}
         </div>
         <a className="universal-nav-link" href="#shop">Shop</a>
+        <a className="universal-nav-link" href="#about">About</a>
+        <a className="universal-nav-link" href="#contact">Contact</a>
       </div>
       <div className="universal-nav-actions">
         <button type="button" className="universal-icon-button" aria-label="Search"><SearchIcon /></button>

@@ -1,0 +1,158 @@
+@font-face { font-family: 'Elgraine'; src: url('../../public/assets/font/Elgraine-Regular.otf') format('opentype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Elgraine'; src: url('../../public/assets/font/Elgraine-ExtraBold.otf') format('opentype'); font-weight: 800; font-display: swap; }
+
+.comics-page,
+.comics-page * { box-sizing: border-box; }
+
+.comics-page {
+  --comics-paper: #2f2825;
+  --comics-ink: #292321;
+  --comics-muted: #5b504b;
+  --comics-copy: #2d2928;
+  --comics-copy-muted: #655b56;
+  --comics-orange: #ff762b;
+  --comics-bg: #242529;
+  --comics-frame: rgba(245, 238, 229, .9);
+  --comics-frame-edge: rgba(54, 42, 35, .62);
+  --comics-word: rgba(48, 37, 31, .34);
+  --comics-stroke: #3e302a;
+  --comics-shift-x: 0px;
+  --comics-shift-y: 0px;
+  --comics-art-x: 0px;
+  --comics-art-y: 0px;
+  min-height: 100svh;
+  overflow: hidden;
+  color: var(--comics-paper);
+  background: var(--comics-bg);
+  font-family: 'Elgraine', Georgia, serif;
+}
+
+.comics-theme-light {
+  --comics-paper: #2b2523;
+  --comics-ink: #292321;
+  --comics-muted: #5e514b;
+  --comics-copy: #302a28;
+  --comics-copy-muted: #675c56;
+  --comics-orange: #d85d22;
+  --comics-bg: #dedbd7;
+  --comics-frame: rgba(250, 245, 237, .92);
+  --comics-frame-edge: rgba(55, 43, 36, .54);
+  --comics-word: rgba(48, 37, 31, .36);
+  --comics-stroke: #3a2d27;
+  background: #dedbd7;
+}
+
+.comics-hero {
+  position: relative;
+  width: 100%;
+  height: calc(100svh - 82px);
+  min-height: 570px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.comics-background,
+.comics-background-veil,
+.comics-orange-wash,
+.comics-foreign-words,
+.comics-panel-lines { position: absolute; inset: 0; }
+.comics-background { z-index: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; filter: grayscale(1) brightness(.86) contrast(.88); transform: scale(1.02) translate3d(var(--comics-shift-x), var(--comics-shift-y), 0); transition: transform 900ms cubic-bezier(.16, .82, .25, 1); }
+.comics-theme-dark .comics-background { filter: grayscale(1) brightness(.42) contrast(1.02); }
+.comics-background-veil { z-index: 1; background: linear-gradient(90deg, rgba(255, 255, 255, .24), transparent 45%, rgba(33, 30, 28, .24)), linear-gradient(0deg, rgba(37, 33, 31, .48), transparent 34%); pointer-events: none; }
+.comics-theme-dark .comics-background-veil { background: linear-gradient(90deg, rgba(12, 12, 15, .52), transparent 49%, rgba(10, 10, 12, .48)), linear-gradient(0deg, rgba(14, 13, 15, .64), transparent 38%); }
+.comics-frame { position: absolute; z-index: 5; inset: clamp(18px, 2.5vw, 34px) clamp(18px, 4.5vw, 68px) clamp(18px, 2.6vw, 32px); overflow: hidden; isolation: isolate; background: var(--comics-frame); clip-path: polygon(0 7%, 2.4% 0, 97.6% 0, 100% 7%, 100% 93%, 97.6% 100%, 2.4% 100%, 0 93%); filter: drop-shadow(0 24px 28px rgba(20, 16, 14, .28)); }
+.comics-frame::before { position: absolute; z-index: 1; inset: 0; background: linear-gradient(115deg, rgba(255, 255, 255, .28), transparent 33%, rgba(255, 255, 255, .1) 73%, transparent), linear-gradient(90deg, rgba(255, 112, 35, .08), transparent 48%); content: ''; pointer-events: none; }
+.comics-frame::after { position: absolute; z-index: 9; top: 20px; right: 3.5%; left: 3.5%; height: 1px; background: var(--comics-frame-edge); content: ''; opacity: .5; pointer-events: none; }
+.comics-orange-wash { z-index: 2; background: radial-gradient(ellipse at 10% 58%, rgba(255, 119, 39, .86), transparent 41%), linear-gradient(90deg, rgba(255, 102, 27, .68), rgba(255, 124, 43, .31) 27%, transparent 65%); mix-blend-mode: multiply; opacity: .84; pointer-events: none; }
+.comics-theme-dark .comics-orange-wash { opacity: .7; }
+
+.comics-foreign-words { z-index: 3; overflow: hidden; color: transparent; pointer-events: none; }
+.comics-word { position: absolute; display: block; color: transparent; font-family: Arial, sans-serif; font-weight: 800; letter-spacing: -.08em; line-height: .8; -webkit-text-stroke: 1.2px var(--comics-word); text-shadow: 0 0 18px color-mix(in srgb, var(--comics-stroke), transparent 70%); animation: comics-word-float 6.8s ease-in-out infinite; }
+.comics-theme-light .comics-word { -webkit-text-stroke: 1.5px var(--comics-word); text-shadow: 0 0 14px rgba(45, 34, 28, .22); }
+.comics-word-one { --word-rotate: -8deg; top: 10%; left: 25%; font-size: clamp(80px, 13vw, 190px); }
+.comics-word-two { --word-rotate: 8deg; top: 20%; right: 8%; font-size: clamp(74px, 11vw, 166px); animation-delay: -2s; }
+.comics-word-three { --word-rotate: -6deg; bottom: 5%; left: 35%; font-size: clamp(82px, 14vw, 210px); animation-delay: -4s; }
+.comics-word-four { --word-rotate: 5deg; right: 30%; bottom: 13%; font-size: clamp(42px, 7vw, 104px); letter-spacing: .08em; animation-delay: -5.7s; }
+.comics-panel-lines { z-index: 4; pointer-events: none; opacity: .5; transform: translate3d(var(--comics-shift-x), var(--comics-shift-y), 0); transition: transform 900ms cubic-bezier(.16, .82, .25, 1); }
+.comics-panel-lines i { position: absolute; display: block; border: 1px solid var(--comics-word); transform: rotate(-14deg); }
+.comics-panel-lines i:nth-child(1) { top: 9%; right: 4%; width: 25%; height: 24%; }
+.comics-panel-lines i:nth-child(2) { bottom: 10%; left: 4%; width: 22%; height: 25%; transform: rotate(11deg); }
+.comics-panel-lines i:nth-child(3) { top: 17%; left: 45%; width: 13%; height: 42%; transform: rotate(6deg); }
+
+.comics-art-wrap { position: absolute; z-index: 6; bottom: 0; left: 1%; width: 70%; height: 94%; pointer-events: none; }
+.comics-art-halo { position: absolute; bottom: 4%; left: 4%; width: 65%; height: 74%; border-radius: 50%; background: radial-gradient(ellipse, rgba(255, 185, 108, .32), transparent 67%); filter: blur(7px); transform: translate3d(var(--comics-art-x), var(--comics-art-y), 0); transition: transform 800ms cubic-bezier(.16, .82, .25, 1); }
+.comics-art,
+.comics-art-glitch { position: absolute; bottom: -1%; left: 0; width: 100%; height: 100%; object-fit: contain; object-position: left bottom; image-rendering: auto; }
+.comics-art { z-index: 3; filter: saturate(1.08) contrast(1.08) drop-shadow(0 25px 16px rgba(31, 23, 19, .36)); transform: translate(var(--comics-art-x), var(--comics-art-y)); transition: transform 800ms cubic-bezier(.16, .82, .25, 1); animation: comics-art-in 1000ms cubic-bezier(.16, .82, .25, 1) both; }
+.comics-art-glitch { z-index: 4; opacity: 0; pointer-events: none; }
+.comics-art-glitch-one { clip-path: inset(10% 0 58% 0); filter: saturate(1.6) hue-rotate(18deg) contrast(1.2); mix-blend-mode: multiply; animation: comics-art-glitch-one 3s steps(4, end) infinite; }
+.comics-art-glitch-two { clip-path: inset(61% 0 8% 0); filter: saturate(1.5) hue-rotate(-24deg) contrast(1.2); mix-blend-mode: multiply; animation: comics-art-glitch-two 3s steps(4, end) infinite; }
+.comics-theme-dark .comics-art-glitch-one,
+.comics-theme-dark .comics-art-glitch-two { mix-blend-mode: color-burn; }
+.comics-art-scan { position: absolute; z-index: 5; inset: 8% 0 12%; background: repeating-linear-gradient(0deg, transparent 0 13px, rgba(56, 39, 30, .26) 14px 15px); opacity: 0; pointer-events: none; animation: comics-art-scan 3s steps(3, end) infinite; }
+.comics-art-caption { position: absolute; z-index: 6; bottom: 8%; left: 5%; display: grid; gap: 5px; color: var(--comics-ink); font-family: Arial, sans-serif; font-size: 10px; font-weight: 800; letter-spacing: .14em; line-height: 1.3; text-shadow: 0 1px 8px rgba(31, 20, 15, .3); }
+.comics-art-caption b { color: var(--comics-orange); }
+
+.comics-left-label { position: absolute; z-index: 7; top: 11%; left: 4.5%; display: grid; gap: 8px; color: var(--comics-ink); font-family: Arial, sans-serif; font-size: 10px; font-weight: 800; letter-spacing: .15em; writing-mode: vertical-rl; transform: rotate(180deg); }
+.comics-left-label b { color: var(--comics-orange); font-size: 9px; }
+
+.comics-copy { position: absolute; z-index: 8; top: 23%; right: 8%; width: min(390px, 30%); color: var(--comics-ink); font-weight: 600; animation: comics-copy-in 900ms 100ms cubic-bezier(.16, .82, .25, 1) both; }
+.comics-kicker { display: flex; align-items: center; gap: 10px; margin: 0; color: var(--comics-orange); font-family: Arial, sans-serif; font-size: 11px; font-weight: 800; letter-spacing: .14em; }
+.comics-kicker span { width: 30px; height: 2px; background: currentColor; }
+.comics-index { margin: 27px 0 13px; color: var(--comics-muted); font-family: Arial, sans-serif; font-size: 10px; font-weight: 800; letter-spacing: .15em; }
+.comics-index b { color: var(--comics-orange); }
+.comics-copy h1 { margin: 0; color: var(--comics-ink); font-size: clamp(54px, 6vw, 92px); font-weight: 800; letter-spacing: -.1em; line-height: .78; }
+.comics-copy h1 em { color: transparent; font-style: normal; -webkit-text-stroke: 1px var(--comics-stroke); }
+.comics-description { max-width: 300px; margin: 31px 0 0; color: var(--comics-muted); font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; line-height: 1.55; }
+.comics-meta { display: flex; gap: 24px; margin-top: 27px; color: var(--comics-muted); font-family: Arial, sans-serif; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.comics-meta b { display: block; margin-bottom: 5px; color: var(--comics-orange); font-size: 18px; }
+.comics-cta { display: inline-flex; align-items: center; gap: 14px; margin-top: 20px; padding: 12px 16px; border: 1px solid color-mix(in srgb, var(--comics-ink), transparent 48%); color: var(--comics-ink); font-family: Arial, sans-serif; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-decoration: none; text-transform: uppercase; transition: background 180ms ease, color 180ms ease, transform 180ms ease; }
+.comics-cta:hover { background: var(--comics-orange); color: #fff8f1; transform: translateY(-2px); }
+.comics-cta span { color: var(--comics-orange); font-size: 18px; }
+.comics-footer { position: absolute; z-index: 8; right: 5%; bottom: 22px; left: 5%; display: flex; justify-content: space-between; color: var(--comics-muted); font-family: Arial, sans-serif; font-size: 10px; font-weight: 800; letter-spacing: .15em; }
+.comics-footer span:last-child { color: var(--comics-orange); }
+
+@keyframes comics-word-float { 0%, 100% { opacity: .48; transform: translate(0, 0) rotate(var(--word-rotate)); } 50% { opacity: 1; transform: translate(16px, -14px) rotate(calc(var(--word-rotate) + 4deg)); } }
+@keyframes comics-art-in { from { opacity: 0; transform: translate(-34px, 18px) scale(.96); } to { opacity: 1; transform: translate(var(--comics-art-x), var(--comics-art-y)) scale(1); } }
+@keyframes comics-art-glitch-one { 0%, 8%, 100% { opacity: 0; transform: translate(0, 0); } 10%, 18% { opacity: .42; transform: translate(-9px, 1px); } 21%, 28% { opacity: .14; transform: translate(6px, -1px); } 32%, 39% { opacity: .3; transform: translate(-4px, 1px); } }
+@keyframes comics-art-glitch-two { 0%, 7%, 100% { opacity: 0; transform: translate(0, 0); } 11%, 19% { opacity: .34; transform: translate(8px, -1px); } 23%, 30% { opacity: .12; transform: translate(-6px, 1px); } 34%, 42% { opacity: .25; transform: translate(4px, 1px); } }
+@keyframes comics-art-scan { 0%, 8%, 100% { opacity: 0; transform: translateY(-18%); } 11%, 27% { opacity: .42; transform: translateY(8%); } 33%, 44% { opacity: .1; transform: translateY(64%); } 50% { opacity: 0; transform: translateY(88%); } }
+@keyframes comics-copy-in { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: translateX(0); } }
+
+@media (max-width: 1050px) {
+  .comics-copy { right: 6%; width: 34%; }
+  .comics-art-wrap { left: -3%; width: 72%; }
+}
+
+@media (max-width: 720px) {
+  .comics-page { overflow-x: hidden; overflow-y: auto; }
+  .comics-hero { height: calc(100svh - 124px); min-height: 720px; }
+  .comics-frame { inset: 14px 12px 16px; }
+  .comics-frame::after { top: 14px; right: 7%; left: 7%; }
+  .comics-background { object-position: 62% center; }
+  .comics-orange-wash { background: radial-gradient(ellipse at 17% 42%, rgba(255, 119, 39, .88), transparent 43%), linear-gradient(180deg, rgba(255, 103, 28, .35), transparent 44%); }
+  .comics-word-one { top: 13%; left: 5%; font-size: 92px; }
+  .comics-word-two { top: 38%; right: -8%; font-size: 92px; }
+  .comics-word-three { bottom: 19%; left: 18%; font-size: 98px; }
+  .comics-word-four { right: 13%; bottom: 33%; font-size: 38px; }
+  .comics-panel-lines i:nth-child(1) { top: 12%; right: -7%; width: 42%; height: 19%; }
+  .comics-panel-lines i:nth-child(2) { bottom: 18%; left: -9%; width: 38%; height: 17%; }
+  .comics-panel-lines i:nth-child(3) { top: 39%; left: 52%; width: 24%; height: 22%; }
+  .comics-art-wrap { bottom: 29%; left: -4%; width: 100%; height: 48%; }
+  .comics-art-caption { bottom: 3%; left: 8%; font-size: 8px; }
+  .comics-left-label { top: 7%; left: 5%; font-size: 8px; }
+  .comics-copy { top: auto; right: 8%; bottom: 7%; left: 8%; width: auto; }
+  .comics-kicker { font-size: 9px; }
+  .comics-index { margin: 13px 0 9px; font-size: 8px; }
+  .comics-copy h1 { font-size: 48px; }
+  .comics-description { max-width: 290px; margin-top: 17px; font-size: 11px; }
+  .comics-meta { gap: 16px; margin-top: 16px; font-size: 8px; }
+  .comics-meta b { font-size: 14px; }
+  .comics-cta { margin-top: 10px; padding: 10px 12px; font-size: 9px; }
+  .comics-footer { right: 8%; bottom: 14px; left: 8%; font-size: 8px; }
+  .comics-footer span:first-child { max-width: 145px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .comics-page *, .comics-page *::before, .comics-page *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

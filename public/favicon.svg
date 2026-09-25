@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <rect width="256" height="256" rx="54" fill="#111820" />
+  <rect x="8" y="8" width="240" height="240" rx="48" fill="none" stroke="#d89416" stroke-width="5" />
+  <text x="83" y="163" fill="#f7c44e" font-family="Arial,sans-serif" font-size="112" font-weight="900" text-anchor="middle">F</text>
+  <text x="166" y="163" fill="#e9edf2" font-family="Arial,sans-serif" font-size="112" font-weight="900" text-anchor="middle">V</text>
+  <path d="M34 180c48 37 133 35 188-11" fill="none" stroke="#f7c44e" stroke-linecap="round" stroke-width="9" />
+  <path d="m217 151 7 20-20 1" fill="#f7c44e" />
+  <path d="m204 46 5 11 12 2-9 8 2 12-10-6-11 6 3-12-9-8 12-1z" fill="#f7c44e" />
+</svg>

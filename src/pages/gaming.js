@@ -3,7 +3,7 @@ import SiteNav from '../components/SiteNav';
 import './gaming.css';
 
 const gameSlides = ['/assets/images/game1.png', '/assets/images/game2.png'];
-const particleKinds = ['cube', 'cross', 'diamond', 'controller', 'cube', 'cross', 'diamond', 'controller', 'cube', 'cross', 'diamond', 'controller', 'cube', 'cross', 'diamond', 'controller', 'cube', 'cross', 'diamond', 'controller', 'cube', 'cross', 'diamond', 'controller'];
+const particleKinds = ['cube', 'cross', 'diamond', 'controller', 'cube', 'diamond', 'cross', 'controller', 'cube', 'cross', 'diamond', 'cube', 'controller', 'diamond', 'cross', 'cube', 'diamond', 'controller', 'cross', 'cube', 'diamond', 'cross'];
 
 function Gaming() {
   const [theme, setTheme] = useState(() => window.localStorage.getItem('fandomverse-theme') || 'dark');
@@ -55,11 +55,18 @@ function Gaming() {
 
       <section className="gaming-hero" aria-label="Gaming universe introduction">
         <div className="gaming-copy">
+          <p className="gaming-copy-code">FV / PLAYER FILE 002</p>
           <p className="gaming-kicker"><span /> Gaming / Universe 02</p>
           <h1>ENTER<br /><em>THE GAME</em></h1>
           <p className="gaming-intro">Play. Explore. Compete.<br />Every world is waiting for your next move.</p>
+          <p className="gaming-copy-note"><b>MISSION 01</b><br />Find your next world<br />and make the first move.</p>
+          <p className="gaming-copy-detail">New levels, bold characters, and endless worlds are ready when you are.</p>
+          <div className="gaming-copy-signal"><span>READY TO PLAY</span><i><b /></i><strong>98%</strong></div>
+          <div className="gaming-copy-stats"><span><b>07</b> worlds</span><span><b>24</b> quests</span><span><b>∞</b> plays</span></div>
+          <div className="gaming-copy-badges"><span><b>LEVEL 01</b><small>FIRST RUN</small></span><span><b>ONLINE</b><small>READY / 2048</small></span><i>SELECT YOUR WORLD <strong>→</strong></i></div>
           <a className="gaming-enter-link" href="#gaming-content">Press enter <span>↗</span></a>
         </div>
+        <div className="gaming-left-decor" aria-hidden="true"><i className="gaming-left-cube gaming-left-cube-one" /><i className="gaming-left-cube gaming-left-cube-two" /><i className="gaming-left-cube gaming-left-cube-three" /><span>+</span><span>◈</span><span>01 / 03</span></div>
 
         <div className="gaming-window">
           <div className="gaming-pink-block gaming-pink-block-one" aria-hidden="true" />
@@ -72,7 +79,7 @@ function Gaming() {
           <div className="gaming-stage-wrap">
             <div className="gaming-stage">
               <div className="gaming-stage-surface" aria-hidden="true" />
-              <div className="gaming-radar-crosshair" aria-hidden="true"><i /><i /></div>
+              <div className="gaming-target-frame" aria-hidden="true"><i /><i /><i /><i /><span /></div>
               <div className="gaming-hud gaming-hud-player"><b>PLAYER 01</b><span>ACTIVE USER</span></div>
               <div className="gaming-hud gaming-hud-system"><b>SYSTEM ONLINE</b><span>READY / 2048</span></div>
               <div className="gaming-hud gaming-hud-level"><b>LEVEL 01</b><span>FIRST RUN</span></div>
