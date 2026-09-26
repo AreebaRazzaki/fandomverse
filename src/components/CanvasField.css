@@ -1,0 +1,17 @@
+/* Decorative particle layer. Sits behind content, never intercepts clicks. */
+
+.canvas-field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: .8;
+}
+
+.canvas-field.is-fine { opacity: .55; }
+
+@media (prefers-reduced-motion: reduce) {
+  .canvas-field { opacity: .5; }
+}

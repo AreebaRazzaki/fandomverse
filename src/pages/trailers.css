@@ -1,0 +1,747 @@
+/* ==========================================================================
+   TRAILER VAULT
+   Dark-first cinematic trailer page. The vault (hero, featured player, cards)
+   is always dark on purpose; the collection area adapts to the active theme so
+   text stays readable in both. Magenta / cyan are the only two accents.
+   ========================================================================== */
+
+.trailers-page {
+  /* One blade silhouette shared by a card and its inner skin, so the border
+     gradient lands exactly on the cut edges. Never rounded, never a plain box. */
+  --blade: polygon(
+    30px 0,
+    calc(100% - 30px) 0,
+    100% 30px,
+    100% calc(38% - 19px),
+    calc(100% - 38px) 38%,
+    100% calc(38% + 19px),
+    100% calc(100% - 30px),
+    calc(100% - 30px) 100%,
+    30px 100%,
+    0 calc(100% - 30px),
+    0 calc(62% - 19px),
+    38px 62%,
+    0 calc(62% + 19px),
+    0 30px
+  );
+  --cut-panel: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px));
+  --magenta: #ff2d95;
+  --cyan: #00e5ff;
+  --accent: var(--magenta);
+  --accent-2: var(--cyan);
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  color: var(--ink);
+  background: var(--bg);
+  font-family: Arial, sans-serif;
+}
+
+/* Deep plum rather than pure black: dark enough for the reels to pop, light
+   enough that the page never reads as a black hole. */
+.trailers-page.theme-dark {
+  --bg: #171029;
+  --bg-2: #241a3f;
+  --ink: #f8f4ff;
+  --muted: #bfb2d6;
+  --faint: #9084ab;
+  --line: rgba(248, 244, 255, .2);
+  --panel: rgba(43, 32, 68, .74);
+  --card: #221838;
+  --card-2: #2c2047;
+  --edge: rgba(255, 255, 255, .18);
+  --scrim: #1b1330;
+}
+
+.trailers-page.theme-light {
+  --bg: #e6dcf2;
+  --bg-2: #d8c9e8;
+  --ink: #1d1430;
+  --muted: #57496c;
+  --faint: #7b6f8e;
+  --line: rgba(29, 20, 48, .2);
+  --panel: rgba(252, 249, 255, .82);
+  --card: #f7f1fd;
+  --card-2: #ece2f8;
+  --edge: rgba(29, 20, 48, .18);
+  --scrim: #ece3f6;
+}
+
+/* ---------- page backdrop: film haze, perforation, scanlines, grain ---------- */
+
+.vault-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+.vault-beams {
+  position: absolute;
+  inset: -20% -10% auto -10%;
+  height: 130%;
+  background:
+    conic-gradient(from 200deg at 18% 8%, transparent 0deg, color-mix(in srgb, var(--magenta), transparent 84%) 26deg, transparent 60deg, color-mix(in srgb, var(--cyan), transparent 88%) 96deg, transparent 140deg),
+    conic-gradient(from 20deg at 88% 22%, transparent 0deg, color-mix(in srgb, var(--cyan), transparent 90%) 30deg, transparent 78deg);
+  filter: blur(90px);
+  opacity: .5;
+}
+
+.vault-haze { position: absolute; border-radius: 50%; filter: blur(80px); }
+.vault-haze-one { top: 8%; left: -6%; width: 44vw; height: 44vw; background: radial-gradient(circle, color-mix(in srgb, var(--magenta), transparent 70%), transparent 68%); opacity: .55; }
+.vault-haze-two { top: 46%; right: -8%; width: 40vw; height: 40vw; background: radial-gradient(circle, color-mix(in srgb, var(--cyan), transparent 72%), transparent 68%); opacity: .45; }
+.vault-haze-three { bottom: -12%; left: 34%; width: 46vw; height: 38vw; background: radial-gradient(circle, color-mix(in srgb, #7a3cff, transparent 78%), transparent 70%); opacity: .4; }
+
+/* 35mm sprocket holes running down both edges. */
+.vault-perf {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle 7px at 22px 22px, color-mix(in srgb, var(--ink), transparent 82%) 6px, transparent 7px),
+    radial-gradient(circle 7px at calc(100% - 22px) 22px, color-mix(in srgb, var(--ink), transparent 82%) 6px, transparent 7px);
+  background-size: 100% 46px;
+  opacity: .5;
+}
+
+.vault-scan {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(180deg, rgba(0, 0, 0, .22) 0 1px, transparent 1px 4px);
+  mix-blend-mode: multiply;
+  opacity: .5;
+}
+
+.theme-light .vault-scan { mix-blend-mode: soft-light; opacity: .35; }
+
+/* Woven lattice, kept inside the gallery only. The page stage above keeps the
+   original reel backdrop, so the hero is untouched. */
+.vault-weave {
+  position: absolute;
+  inset: -24px -24px 0;
+  z-index: 0;
+  border-radius: 30px 8px 30px 8px;
+  /* The weave was reading as a heavy crosshatch over the whole collection. The
+     hatch lines are fainter and further apart, and the two colour washes are
+     softened, so it sits behind the cards instead of competing with them. */
+  background-image:
+    repeating-linear-gradient(58deg, color-mix(in srgb, var(--magenta), transparent 97%) 0 1px, transparent 1px 44px),
+    repeating-linear-gradient(-58deg, color-mix(in srgb, var(--cyan), transparent 97%) 0 1px, transparent 1px 44px),
+    radial-gradient(circle at 18% 24%, color-mix(in srgb, var(--magenta), transparent 95%) 0 20%, transparent 44%),
+    radial-gradient(circle at 84% 68%, color-mix(in srgb, var(--cyan), transparent 95%) 0 22%, transparent 46%);
+  opacity: .5;
+  pointer-events: none;
+}
+
+.theme-light .vault-weave {
+  opacity: .72;
+  background-image:
+    repeating-linear-gradient(58deg, rgba(200, 16, 111, .05) 0 1px, transparent 1px 40px),
+    repeating-linear-gradient(-58deg, rgba(10, 127, 150, .055) 0 1px, transparent 1px 40px),
+    radial-gradient(circle at 16% 20%, rgba(200, 16, 111, .09) 0 20%, transparent 44%),
+    radial-gradient(circle at 86% 66%, rgba(10, 127, 150, .1) 0 22%, transparent 46%),
+    linear-gradient(180deg, rgba(255, 255, 255, .55), transparent 30%, rgba(29, 20, 48, .08));
+}
+
+/* Cards sit on tinted stock, never on paper white. */
+.theme-light .trailer-inner { background: linear-gradient(105deg, var(--card), var(--card-2)); box-shadow: 0 16px 34px rgba(53, 33, 88, .14); }
+.theme-light .trailer-card:hover .trailer-inner { background: linear-gradient(105deg, #ffffff, #e4d7f4); }
+.theme-light .trailer-card.is-featured .trailer-inner { background: linear-gradient(105deg, #fdf6ff, #e9dcf7); }
+.theme-light .trailer-title { color: #1d1430; }
+.theme-light .vault-collection { position: relative; }
+
+.vault-grain {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(28, 16, 48, .12) .5px, transparent .5px);
+  background-size: 3px 3px;
+  opacity: .35;
+}
+
+/* ---------- hero ---------- */
+
+/* Hero runs on its own warm accent so the page keeps its cyan identity below
+   without the opening shot reading as black-and-blue. */
+/* The headline sits centred in a light film-stock stage, so dark ink stays
+   readable in both themes instead of fighting a black backdrop. */
+.vault-hero {
+  --gold: #b9791a;
+  --gold-soft: #8a5a12;
+  --mx: 50%;
+  --my: 34%;
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+  min-height: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 72px max(28px, calc((100vw - 1480px) / 2)) 52px;
+  overflow: hidden;
+  color: #1c1030;
+  text-align: center;
+  background:
+    radial-gradient(120% 96% at 50% 0%, #fffaf3 0%, #f6ecfb 46%, #ece0f6 100%);
+}
+
+.trailers-page.theme-light .vault-hero {
+  background:
+    radial-gradient(120% 96% at 50% 0%, #ffffff 0%, #f4eefc 52%, #eae0f5 100%);
+}
+
+.theme-light .vault-hero { background: radial-gradient(120% 96% at 50% 0%, #ffffff 0%, #f3ecfb 46%, var(--scrim) 100%); }
+
+.vault-hero::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--scrim), transparent 74%) 0%, transparent 34%, color-mix(in srgb, var(--scrim), transparent 62%) 84%, var(--scrim) 100%);
+  content: '';
+}
+
+/* Pointer-tracked spotlight: the only moving light in the room. */
+.vault-spotlight {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(560px circle at var(--mx) var(--my), rgba(255, 194, 71, .3), transparent 68%),
+    radial-gradient(900px circle at calc(100% - var(--mx)) calc(100% - var(--my)), rgba(255, 45, 149, .26), transparent 72%);
+  opacity: 0;
+  transition: opacity 420ms ease;
+}
+
+.vault-hero.is-lit .vault-spotlight { opacity: 1; }
+.vault-hero-canvas { z-index: -1; opacity: .85; }
+.theme-light .vault-hero-canvas { opacity: .45; }
+
+/* Blurred movie frames: a strip of stills, heavily defocused, slowly panning,
+   nudged against the pointer for a shallow parallax. */
+.vault-frames {
+  position: absolute;
+  inset: -8% -4%;
+  z-index: -2;
+  display: flex;
+  gap: 10px;
+  filter: blur(18px) saturate(1.2);
+  opacity: .34;
+  animation: vault-pan 46s linear infinite alternate;
+  transform: translate(calc((var(--mx) - 50%) * -.9%), calc((var(--my) - 40%) * -.7%));
+}
+
+.vault-frame {
+  flex: 1 0 15%;
+  background-image: var(--frame);
+  background-position: center;
+  background-size: cover;
+  transform: scale(1.1);
+}
+
+/* Soft film edges instead of solid black bars. */
+.vault-letterbox { position: absolute; left: 0; right: 0; z-index: 3; height: 34px; background: linear-gradient(180deg, rgba(28, 16, 48, .12), transparent); opacity: .8; }
+.vault-letterbox-top { top: 0; }
+.vault-letterbox-bottom { bottom: 0; transform: rotate(180deg); }
+
+.vault-hero-inner { position: relative; z-index: 4; width: 100%; max-width: 1100px; margin: 0 auto; text-align: center; }
+
+.vault-rec {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0 auto 16px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: #6b5a86;
+}
+
+.vault-rec i { width: 11px; height: 11px; background: #ff2b3d; box-shadow: 0 0 14px #ff2b3d; animation: vault-blink 1.4s steps(1) infinite; }
+.vault-rec-time { color: var(--gold); }
+
+/* The wordmark was running to 132px on wide screens, which made the opening
+   shot feel like a poster rather than a page header. It is now capped much
+   lower and the stroke is thinned to match. */
+.vault-hero h1 {
+  margin: 0;
+  font-size: clamp(30px, 5.6vw, 76px);
+  font-weight: 900;
+  line-height: .96;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #1c1030;
+  text-shadow: 0 2px 0 rgba(255, 255, 255, .8), 0 12px 30px rgba(120, 60, 190, .2);
+}
+
+/* Kept inline so the wordmark never breaks onto a second line. */
+.vault-hero h1 em {
+  font-style: normal;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--gold);
+  text-shadow: 0 10px 26px rgba(185, 121, 26, .24);
+}
+
+.vault-tagline {
+  max-width: 52ch;
+  margin: 14px auto 0;
+  font-size: clamp(14px, 1.35vw, 17px);
+  font-weight: 600;
+  line-height: 1.6;
+  color: #4a3a63;
+}
+
+/* Rotating headline filler: one word at a time, so the opening shot keeps moving. */
+.vault-hero-rotator { display: inline-flex; align-items: baseline; gap: 12px; margin: 18px auto 0; }
+.vault-hero-rotator-label { color: var(--gold); font-size: 10px; font-weight: 900; letter-spacing: .26em; text-transform: uppercase; }
+.vault-hero-rotator-words { position: relative; display: inline-block; min-width: 15ch; }
+.vault-hero-rotator-words span {
+  position: absolute;
+  inset: 0;
+  color: #1c1030;
+  font-size: clamp(16px, 2vw, 25px);
+  font-weight: 900;
+  letter-spacing: -.01em;
+  white-space: nowrap;
+  animation: vault-rotate 3.6s steps(1) infinite;
+}
+
+.vault-hero-rotator-words span:nth-child(2) { animation-delay: 1.2s; }
+.vault-hero-rotator-words span:nth-child(3) { animation-delay: 2.4s; }
+
+@keyframes vault-rotate { 0%, 33% { opacity: 1; transform: none; } 34%, 100% { opacity: 0; transform: translateY(-9px); } }
+
+/* Stat rail: the old bare numbers read as an afterthought, so each one is a
+   labelled card with a rule and a live tint. */
+.vault-hero-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; max-width: 720px; margin: 24px auto 0; padding: 0; list-style: none; }
+
+.vault-hero-stats li {
+  position: relative;
+  padding: 14px 18px;
+  border: 1px solid rgba(28, 16, 48, .16);
+  border-radius: 16px 5px 16px 5px;
+  background: rgba(255, 255, 255, .58);
+  backdrop-filter: blur(4px);
+}
+
+.vault-hero-stats b { display: block; font-size: clamp(22px, 2.4vw, 32px); font-weight: 900; line-height: 1; letter-spacing: -.03em; color: var(--gold); }
+.vault-hero-stats span { display: block; margin-top: 7px; color: #6b5a86; font-size: 10px; font-weight: 900; letter-spacing: .2em; text-transform: uppercase; }
+.vault-hero-stats li:nth-child(2) b { color: var(--magenta); }
+.vault-hero-stats li:nth-child(3) b { color: var(--cyan); }
+
+.theme-light .vault-hero-stats li { border-color: rgba(29, 20, 48, .16); background: rgba(255, 255, 255, .78); }
+.theme-light .vault-hero-stats span { color: var(--muted); }
+.theme-light .vault-hero-stats b { color: #a9700a; }
+.theme-light .vault-hero-stats li:nth-child(2) b { color: #c9106f; }
+.theme-light .vault-hero-stats li:nth-child(3) b { color: #0a7f96; }
+
+.vault-hero-hint { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 26px; margin: 20px auto 0; padding: 0; list-style: none; }
+.vault-hero-hint li { display: flex; align-items: center; gap: 9px; color: #5b4a75; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.vault-hero-hint li::before { width: 6px; height: 6px; background: var(--gold); content: ''; transform: rotate(45deg); }
+
+/* Thin animated line, like a loading playhead. */
+.vault-progress { position: absolute; right: 0; bottom: 30px; left: 0; z-index: 4; height: 3px; background: rgba(28, 16, 48, .14); }
+.vault-progress-rail { position: absolute; inset: 0; overflow: hidden; }
+.vault-progress-rail::after {
+  position: absolute;
+  top: 0;
+  left: -32%;
+  width: 32%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--magenta) 30%, var(--gold));
+  content: '';
+  animation: vault-sweep 5.5s linear infinite;
+}
+.vault-progress-head { position: absolute; top: -4px; left: 0; width: 11px; height: 11px; background: #fff; box-shadow: 0 0 16px var(--gold); animation: vault-slide 5.5s linear infinite; }
+
+@keyframes vault-sweep { from { transform: translateX(0); } to { transform: translateX(430%); } }
+@keyframes vault-slide { from { left: 0; } to { left: 100%; } }
+@keyframes vault-blink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: .18; } }
+@keyframes vault-pan { from { transform: translateX(-3%) scale(1.12); } to { transform: translateX(3%) scale(1.16); } }
+
+/* ---------- featured trailer: 65 / 35 ---------- */
+
+.vault-featured {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 65fr 35fr;
+  gap: 0;
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 0 max(28px, calc((100vw - 1480px) / 2));
+}
+
+.vault-screen {
+  position: relative;
+  padding: 18px 18px 0 0;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--magenta), transparent 88%), color-mix(in srgb, var(--cyan), transparent 92%));
+  clip-path: polygon(0 0, calc(100% - 44px) 0, 100% 44px, 100% 100%, 0 100%);
+}
+
+.vault-screen-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 42px;
+  padding: 0 18px;
+  color: #e9e2f6;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  background: #08060f;
+}
+
+.vault-screen-tag { padding: 5px 10px; color: #08060f; background: var(--cyan); }
+.vault-screen-id { color: #9b8fb4; }
+.vault-screen-live { display: flex; align-items: center; gap: 7px; margin-left: auto; color: var(--magenta); }
+.vault-screen-live i { width: 8px; height: 8px; background: var(--magenta); box-shadow: 0 0 10px var(--magenta); }
+
+.vault-embed { position: relative; aspect-ratio: 16 / 9; background: #000; }
+.vault-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+.vault-featured-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 34px 0 34px 34px;
+  border-left: 1px solid var(--line);
+}
+
+.vault-featured-flags { display: flex; align-items: center; gap: 10px; margin: 0 0 16px; font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
+.vault-featured-flags b { color: var(--accent); }
+.vault-featured-flags i { color: var(--faint); font-style: normal; }
+.vault-featured-flags .is-upcoming { color: var(--cyan); }
+.vault-featured-flags .is-released { color: var(--muted); }
+
+.vault-featured-info h2 {
+  margin: 0 0 16px;
+  font-size: clamp(26px, 3.1vw, 44px);
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -.02em;
+  color: var(--ink);
+}
+
+.vault-featured-blurb { margin: 0 0 24px; font-size: 15px; line-height: 1.6; color: var(--muted); }
+
+.vault-featured-data { display: grid; gap: 12px; margin: 0 0 28px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.vault-featured-data div { display: flex; align-items: baseline; gap: 14px; }
+.vault-featured-data dt { flex: none; min-width: 92px; font-size: 10px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--faint); }
+.vault-featured-data dd { margin: 0; font-size: 14px; font-weight: 700; color: var(--ink); }
+
+.vault-featured-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.vault-watch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 26px;
+  border: 0;
+  color: #08060f;
+  background: linear-gradient(100deg, var(--magenta), #ff6ab8);
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  clip-path: polygon(14px 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--magenta), transparent 60%);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.vault-watch:hover { transform: translateY(-3px); box-shadow: 0 16px 40px color-mix(in srgb, var(--magenta), transparent 42%); }
+.vault-watch-ghost { color: var(--ink); background: transparent; box-shadow: inset 0 0 0 1px var(--line); }
+.vault-watch-ghost:hover { box-shadow: inset 0 0 0 1px var(--cyan); }
+
+/* ---------- trailer timeline ---------- */
+
+.vault-timeline { position: relative; z-index: 2; max-width: 1480px; margin: 46px auto 0; padding: 0 max(28px, calc((100vw - 1480px) / 2)); }
+
+.vault-timeline-title { margin: 0 0 40px; font-size: 10px; font-weight: 900; letter-spacing: .34em; text-transform: uppercase; color: var(--faint); }
+
+.vault-rail { position: relative; height: 4px; }
+.vault-rail-track { position: absolute; inset: 0; background: var(--line); }
+.vault-rail-done { position: absolute; top: 0; left: 0; height: 100%; background: linear-gradient(90deg, var(--magenta), #ff7ab9); box-shadow: 0 0 16px color-mix(in srgb, var(--magenta), transparent 45%); }
+.vault-rail::after { position: absolute; top: 0; left: 0; height: 100%; background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--cyan), transparent 30%) 0 2px, transparent 2px 10px); content: ''; mix-blend-mode: screen; }
+
+.vault-tick { position: absolute; top: -6px; width: 2px; height: 16px; background: var(--muted); transform: translateX(-1px); }
+.vault-tick.is-active { background: var(--cyan); box-shadow: 0 0 12px var(--cyan); height: 24px; top: -10px; }
+
+.vault-rail-now { position: absolute; bottom: 18px; display: flex; align-items: center; gap: 8px; transform: translateX(-50%); font-size: 10px; font-weight: 900; letter-spacing: .24em; text-transform: uppercase; color: var(--cyan); white-space: nowrap; }
+.vault-rail-now i { width: 9px; height: 9px; background: var(--cyan); transform: rotate(45deg); box-shadow: 0 0 14px var(--cyan); }
+
+.vault-timeline-ends { display: flex; justify-content: space-between; margin-top: 14px; font-size: 10px; font-weight: 900; letter-spacing: .26em; text-transform: uppercase; color: var(--faint); }
+.vault-timeline-ends span:last-child { color: var(--cyan); }
+
+/* ---------- filters ---------- */
+
+.vault-filters {
+  position: relative;
+  z-index: 3;
+  max-width: 1480px;
+  margin: 66px auto 0;
+  padding: 20px 24px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  backdrop-filter: blur(14px);
+  clip-path: var(--cut-panel);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, .22);
+}
+
+.vault-fandom-bar { display: flex; flex-wrap: wrap; gap: 10px; }
+.vault-status-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--line); }
+
+.vault-filters button {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 13px 22px;
+  border: 1px solid var(--edge);
+  color: var(--muted);
+  background: transparent;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  clip-path: polygon(11px 0, 100% 0, calc(100% - 11px) 100%, 0 100%);
+  transition: color 200ms ease, background 200ms ease, border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+
+.vault-filters button sup { font-size: 10px; color: var(--faint); }
+.vault-filters button:hover { color: var(--ink); border-color: var(--cyan); transform: translateY(-2px); }
+.vault-filters button.is-active { color: #08060f; border-color: var(--magenta); background: var(--magenta); box-shadow: 0 0 26px color-mix(in srgb, var(--magenta), transparent 50%); }
+.vault-filters button.is-active sup { color: rgba(8, 6, 15, .62); }
+.vault-status-bar button { padding: 9px 18px; font-size: 11px; }
+.vault-status-bar button.is-active { border-color: var(--cyan); background: var(--cyan); box-shadow: 0 0 26px color-mix(in srgb, var(--cyan), transparent 52%); }
+
+/* ---------- trailer collection ---------- */
+
+.vault-collection { position: relative; z-index: 2; display: grid; gap: 22px; max-width: 1480px; margin: 40px auto 0; padding: 0 max(28px, calc((100vw - 1480px) / 2)); }
+
+/* The blade silhouette is painted by a pseudo layer instead of clipping the card
+   itself, so the save note that hangs over the card is never cut off. */
+.trailer-card {
+  position: relative;
+  min-height: 152px;
+  background-color: var(--edge);
+  transition: filter 240ms ease, background-color 240ms ease, transform 240ms ease;
+}
+
+/* Hover applies a filter, and a filter creates a stacking context. Without a
+   z-index the card stayed at "auto" and the next card in the grid painted over
+   the whole context, including the open save note hanging below it. Lifting the
+   card on hover and on keyboard focus keeps the note on top. */
+.trailer-card:hover,
+.trailer-card:focus-within { z-index: 20; }
+
+.trailer-card::after {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: var(--edge);
+  clip-path: var(--blade);
+  content: '';
+  pointer-events: none;
+}
+
+.trailer-inner {
+  position: absolute;
+  inset: 1px;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 46px 208px minmax(0, 1fr) 104px;
+  gap: 20px;
+  align-items: center;
+  padding: 16px 22px 16px 16px;
+  background: linear-gradient(105deg, var(--card), var(--card-2));
+  clip-path: var(--blade);
+  transition: background 240ms ease;
+}
+
+/* Vertical category label living in the left rail. */
+.trailer-rail { align-self: stretch; display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--edge); }
+.trailer-rail i {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 11px;
+  font-weight: 900;
+  font-style: normal;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.trailer-thumb { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; background: #000; clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%); }
+.trailer-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 520ms cubic-bezier(.2, .7, .2, 1), filter 320ms ease; }
+
+.trailer-veil { position: absolute; inset: 0; background: linear-gradient(100deg, rgba(4, 3, 10, .18), rgba(4, 3, 10, .82)); transition: opacity 320ms ease; opacity: .55; }
+
+.trailer-glare {
+  position: absolute;
+  top: -60%;
+  left: -40%;
+  width: 60%;
+  height: 220%;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--cyan), transparent 62%), transparent);
+  transform: rotate(18deg);
+  transition: left 620ms ease;
+}
+
+.trailer-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border: 0;
+  font-size: 19px;
+  color: #08060f;
+  background: var(--cyan);
+  transform: translate(-50%, -50%) scale(.4);
+  opacity: 0;
+  transition: transform 320ms cubic-bezier(.2, .9, .3, 1.3), opacity 240ms ease;
+  clip-path: polygon(9px 0, 100% 0, calc(100% - 9px) 100%, 0 100%);
+}
+
+.trailer-runtime { position: absolute; right: 6px; bottom: 6px; padding: 3px 7px; font-size: 10px; font-weight: 800; letter-spacing: .08em; color: #f2eeff; background: rgba(4, 3, 10, .84); }
+
+.trailer-body { display: flex; flex-direction: column; gap: 9px; min-width: 0; }
+.trailer-flags { display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 900; letter-spacing: .2em; text-transform: uppercase; }
+.trailer-flags b { color: var(--accent); }
+.trailer-flags i { color: var(--faint); font-style: normal; }
+.trailer-flags .is-upcoming { color: var(--cyan); }
+.trailer-flags .is-released { color: var(--muted); }
+.trailer-title { font-size: clamp(17px, 1.6vw, 22px); font-weight: 900; line-height: 1.14; letter-spacing: -.01em; color: var(--ink); }
+.trailer-date { font-size: 10px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--faint); }
+.trailer-date em { margin-left: 8px; font-style: normal; color: var(--muted); }
+
+.trailer-cta { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 10px; font-size: 11px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; color: var(--ink); box-shadow: inset 0 0 0 1px var(--edge); clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%); transition: color 240ms ease, background 240ms ease; }
+
+.trailer-hit { position: absolute; inset: 0; z-index: 1; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.trailer-hit:focus-visible { outline: 3px solid var(--cyan); outline-offset: -6px; }
+
+.trailer-yt {
+  position: absolute;
+  top: 62px;
+  right: 10px;
+  z-index: 7;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .04em;
+  text-decoration: none;
+  color: #f2eeff;
+  background: rgba(4, 3, 10, .7);
+  box-shadow: inset 0 0 0 1px var(--edge);
+  transition: color 200ms ease, background 200ms ease;
+}
+
+.trailer-yt:hover { color: #08060f; background: var(--cyan); }
+
+.trailer-card:hover { background-color: var(--cyan); transform: translateX(4px); filter: drop-shadow(0 14px 34px rgba(0, 0, 0, .38)) drop-shadow(0 0 26px color-mix(in srgb, var(--magenta), transparent 42%)) drop-shadow(0 0 46px color-mix(in srgb, var(--cyan), transparent 58%)); }
+.trailer-card:hover .trailer-inner { background: linear-gradient(105deg, var(--card-2), #241634); }
+.trailer-card:hover .trailer-thumb img { transform: scale(1.09); filter: saturate(1.15); }
+.trailer-card:hover .trailer-veil { opacity: .92; }
+.trailer-card:hover .trailer-glare { left: 110%; }
+.trailer-card:hover .trailer-play { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+.trailer-card:hover .trailer-cta { color: #08060f; background: var(--magenta); }
+.trailer-card.is-featured .trailer-inner { background: linear-gradient(105deg, #1d1430, #2a1440); }
+.trailer-card.is-featured { background-color: var(--magenta); }
+.trailer-card.is-featured .trailer-rail i { color: var(--cyan); }
+
+/* ---------- load more ---------- */
+
+.vault-more { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 12px; margin: 56px auto 0; padding-bottom: 20px; }
+
+.vault-more button {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 40px;
+  border: 0;
+  color: #08060f;
+  background: linear-gradient(100deg, var(--cyan), #7af1ff);
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  clip-path: polygon(18px 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
+  box-shadow: 0 14px 40px color-mix(in srgb, var(--cyan), transparent 62%);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.vault-more button:hover { transform: translateY(-3px); box-shadow: 0 20px 50px color-mix(in srgb, var(--cyan), transparent 42%); }
+.vault-more button i { font-style: normal; transition: transform 200ms ease; }
+.vault-more button:hover i { transform: translateX(6px); }
+.vault-more p { margin: 0; font-size: 10px; font-weight: 800; letter-spacing: .24em; text-transform: uppercase; color: var(--faint); }
+
+/* ---------- states ---------- */
+
+.vault-note { position: relative; z-index: 2; max-width: 1480px; margin: 60px auto; padding: 0 max(28px, calc((100vw - 1480px) / 2)); font-size: 14px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.vault-note-error { display: flex; align-items: center; gap: 18px; }
+.vault-note-error p { margin: 0; }
+.vault-note-error button { padding: 12px 22px; border: 0; color: #08060f; background: var(--magenta); font-family: Arial, sans-serif; font-size: 11px; font-weight: 900; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%); }
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1180px) {
+  .vault-featured { grid-template-columns: 1fr; }
+  .vault-featured-info { padding: 30px 0 40px; border-left: 0; border-top: 1px solid var(--line); }
+  .trailer-inner { grid-template-columns: 40px 180px minmax(0, 1fr); }
+  .trailer-cta { display: none; }
+}
+
+@media (max-width: 760px) {
+  .vault-hero { min-height: auto; padding: 124px 20px 78px; }
+  .vault-rec-time { display: none; }
+  .trailer-rail { display: none; }
+  .trailer-inner { grid-template-columns: minmax(0, 1fr); padding: 18px; }
+  .trailer-thumb { width: 100%; }
+  .vault-hero-stats { grid-template-columns: 1fr; gap: 10px; }
+  .vault-hero-stats li { padding: 14px 16px; }
+  .vault-filters { padding: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vault-frames, .vault-progress-rail::after, .vault-progress-head, .vault-rec i { animation: none; }
+  .vault-hero-rotator-words span { animation: none; }
+  .vault-hero-rotator-words span:not(:first-child) { display: none; }
+  .trailer-card, .trailer-inner, .trailer-thumb img, .trailer-play, .trailer-glare { transition: none; }
+}
+
+/* ---------- card save control ---------- */
+
+/* BookmarkButton folds the className onto its own root, so `.trailer-save` and
+   `.bookmark` are one element. It is anchored to the right of the card, above
+   the play layer, and the note hangs below it so nothing is ever cropped. */
+.trailer-save {
+  position: absolute;
+  top: 24px;
+  right: 10px;
+  z-index: 7;
+  pointer-events: auto;
+  --mark-accent: var(--magenta);
+  --mark-ink: #f6f2ff;
+  --mark-face: rgba(4, 3, 10, .8);
+  --mark-panel: #0a0714;
+  --mark-line: rgba(255, 255, 255, .26);
+  --mark-muted: #a99cbe;
+}
+
+/* The note hangs below the toggle. It is capped to the viewport and shifted
+   left on narrow screens so it can never run past the card edge. */
+.trailer-save .bookmark-note { top: calc(100% + 10px); right: 0; bottom: auto; left: auto; max-width: calc(100vw - 40px); }
+
+@media (max-width: 760px) {
+  .trailer-save { top: 20px; right: 8px; }
+  .trailer-yt { top: 56px; right: 8px; }
+  .trailer-save .bookmark-note { right: -4px; width: min(244px, calc(100vw - 32px)); }
+}

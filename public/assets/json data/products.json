@@ -1,0 +1,764 @@
+{
+  "page": {
+    "title": "The Fan Vault",
+    "tagline": "Objects worth keeping."
+  },
+  "products": [
+    {
+      "id": 1,
+      "name": "Demon Slayer Infinity Castle Poster",
+      "category": "Anime",
+      "image": "/assets/images/anime1.png",
+      "price": 9,
+      "priceRange": "$9 - $18",
+      "description": "A1 giclée print on heavyweight matte stock, numbered on the back and shipped in a rigid tube."
+    },
+    {
+      "id": 2,
+      "name": "Wado Studio Shonen Jump Vol. 1-3 Slipcase",
+      "category": "Anime",
+      "image": "/assets/images/anime2.png",
+      "price": 16,
+      "priceRange": "$16 - $24",
+      "description": "Colour graded against a reference reel, then checked under daylight before it ships."
+    },
+    {
+      "id": 3,
+      "name": "Rengoku Teacup",
+      "category": "Anime",
+      "image": "/assets/images/anime3.png",
+      "price": 22,
+      "priceRange": "$22 - $30",
+      "description": "Hand finished, so no two pieces carry exactly the same grain, glaze or fade."
+    },
+    {
+      "id": 4,
+      "name": "Jujutsu Kaisen Yuji Itadori Wall Scroll",
+      "category": "Anime",
+      "image": "/assets/images/anime4.png",
+      "price": 28,
+      "priceRange": "$28 - $42",
+      "description": "Small batch, made to order. Once the run is gone it does not come back to the vault."
+    },
+    {
+      "id": 5,
+      "name": "Attack on Titan Colossal Titan Print",
+      "category": "Anime",
+      "image": "/assets/images/anime5.png",
+      "price": 38,
+      "priceRange": "$38 - $9",
+      "description": "A collector shelf piece with a weighted base, so it stands up without leaning on anything."
+    },
+    {
+      "id": 6,
+      "name": "Chainsaw Man Denji Figure",
+      "category": "Anime",
+      "image": "/assets/images/anime6.png",
+      "price": 55,
+      "priceRange": "$55 - $16",
+      "description": "Foil-blocked slipcase with a clear belly band and an acrylic standee inside."
+    },
+    {
+      "id": 7,
+      "name": "Spy x Family Loid Forger Notebook",
+      "category": "Anime",
+      "image": "/assets/images/anime.png",
+      "price": 14,
+      "priceRange": "$14 - $22",
+      "description": "Ships flat in a board-backed envelope with a corner guard on every side."
+    },
+    {
+      "id": 8,
+      "name": "Demon Slayer Rengoku Mug",
+      "category": "Anime",
+      "image": "/assets/images/anime1.png",
+      "price": 19,
+      "priceRange": "$19 - $28",
+      "description": "Numbered first print, packed with a letterpress card about the scene it was drawn from."
+    },
+    {
+      "id": 9,
+      "name": "Wado Studio Shonen Jump Pin Set",
+      "category": "Anime",
+      "image": "/assets/images/anime2.png",
+      "price": 26,
+      "priceRange": "$26 - $38",
+      "description": "A1 giclée print on heavyweight matte stock, numbered on the back and shipped in a rigid tube."
+    },
+    {
+      "id": 10,
+      "name": "Jujutsu Kaisen Sukuna Keychain",
+      "category": "Anime",
+      "image": "/assets/images/anime3.png",
+      "price": 34,
+      "priceRange": "$34 - $55",
+      "description": "Colour graded against a reference reel, then checked under daylight before it ships."
+    },
+    {
+      "id": 11,
+      "name": "Attack on Titan Survey Corps Tote",
+      "category": "Anime",
+      "image": "/assets/images/anime4.png",
+      "price": 48,
+      "priceRange": "$48 - $14",
+      "description": "Hand finished, so no two pieces carry exactly the same grain, glaze or fade."
+    },
+    {
+      "id": 12,
+      "name": "Chainsaw Man Power Poster",
+      "category": "Anime",
+      "image": "/assets/images/anime5.png",
+      "price": 12,
+      "priceRange": "$12 - $19",
+      "description": "Small batch, made to order. Once the run is gone it does not come back to the vault."
+    },
+    {
+      "id": 13,
+      "name": "ELDEN RING Erdtree Map Print",
+      "category": "Gaming",
+      "image": "/assets/images/game1.png",
+      "price": 12,
+      "priceRange": "$12 - $19",
+      "description": "Foil-blocked slipcase with a clear belly band and an acrylic standee inside."
+    },
+    {
+      "id": 14,
+      "name": "Nightreign Nightlord Steelbook",
+      "category": "Gaming",
+      "image": "/assets/images/game2.png",
+      "price": 18,
+      "priceRange": "$18 - $26",
+      "description": "Ships flat in a board-backed envelope with a corner guard on every side."
+    },
+    {
+      "id": 15,
+      "name": "Hollow Knight Vessel Desk Mat",
+      "category": "Gaming",
+      "image": "/assets/images/gaming.png",
+      "price": 24,
+      "priceRange": "$24 - $34",
+      "description": "Numbered first print, packed with a letterpress card about the scene it was drawn from."
+    },
+    {
+      "id": 16,
+      "name": "Cyberpunk 2077 Night City Lanyard",
+      "category": "Gaming",
+      "image": "/assets/images/game1.png",
+      "price": 30,
+      "priceRange": "$30 - $48",
+      "description": "A1 giclée print on heavyweight matte stock, numbered on the back and shipped in a rigid tube."
+    },
+    {
+      "id": 17,
+      "name": "The Legend of Zelda Hyrule Field Print",
+      "category": "Gaming",
+      "image": "/assets/images/game2.png",
+      "price": 42,
+      "priceRange": "$42 - $12",
+      "description": "Colour graded against a reference reel, then checked under daylight before it ships."
+    },
+    {
+      "id": 18,
+      "name": "God of War Leviathan Axe Replica",
+      "category": "Gaming",
+      "image": "/assets/images/gaming.png",
+      "price": 9,
+      "priceRange": "$9 - $18",
+      "description": "Hand finished, so no two pieces carry exactly the same grain, glaze or fade."
+    },
+    {
+      "id": 19,
+      "name": "ELDEN RING Roundtable Shield Replica",
+      "category": "Gaming",
+      "image": "/assets/images/game1.png",
+      "price": 16,
+      "priceRange": "$16 - $24",
+      "description": "Small batch, made to order. Once the run is gone it does not come back to the vault."
+    },
+    {
+      "id": 20,
+      "name": "Hollow Knight Hallownest Pin",
+      "category": "Gaming",
+      "image": "/assets/images/game2.png",
+      "price": 22,
+      "priceRange": "$22 - $30",
+      "description": "A collector shelf piece with a weighted base, so it stands up without leaning on anything."
+    },
+    {
+      "id": 21,
+      "name": "Nightreign Nightreign Hoodie",
+      "category": "Gaming",
+      "image": "/assets/images/gaming.png",
+      "price": 28,
+      "priceRange": "$28 - $42",
+      "description": "Foil-blocked slipcase with a clear belly band and an acrylic standee inside."
+    },
+    {
+      "id": 22,
+      "name": "Stardew Valley Pelican Town Poster",
+      "category": "Gaming",
+      "image": "/assets/images/game1.png",
+      "price": 38,
+      "priceRange": "$38 - $9",
+      "description": "Ships flat in a board-backed envelope with a corner guard on every side."
+    },
+    {
+      "id": 23,
+      "name": "ELDEN RING Erdtree Tote",
+      "category": "Gaming",
+      "image": "/assets/images/game2.png",
+      "price": 55,
+      "priceRange": "$55 - $16",
+      "description": "Numbered first print, packed with a letterpress card about the scene it was drawn from."
+    },
+    {
+      "id": 24,
+      "name": "Bloodborne Moonlight Tear Cup",
+      "category": "Gaming",
+      "image": "/assets/images/gaming.png",
+      "price": 14,
+      "priceRange": "$14 - $22",
+      "description": "A1 giclée print on heavyweight matte stock, numbered on the back and shipped in a rigid tube."
+    },
+    {
+      "id": 25,
+      "name": "Glass Poster",
+      "category": "Movies",
+      "image": "/assets/images/poster-glass.jpg",
+      "price": 14,
+      "priceRange": "$14 - $22",
+      "description": "Hand finished, so no two pieces carry exactly the same grain, glaze or fade."
+    },
+    {
+      "id": 26,
+      "name": "My Trip to the Moon Nostalgia Lightbox",
+      "category": "Movies",
+      "image": "/assets/images/glass.jpg",
+      "price": 19,
+      "priceRange": "$19 - $28",
+      "description": "Small batch, made to order. Once the run is gone it does not come back to the vault."
+    },
+    {
+      "id": 27,
+      "name": "Joker Poster",
+      "category": "Movies",
+      "image": "/assets/images/poster-my-trip.jpg",
+      "price": 26,
+      "priceRange": "$26 - $38",
+      "description": "A collector shelf piece with a weighted base, so it stands up without leaning on anything."
+    },
+    {
+      "id": 28,
+      "name": "Avengers Model Kit",
+      "category": "Movies",
+      "image": "/assets/images/my-trip.jpg",
+      "price": 34,
+      "priceRange": "$34 - $55",
+      "description": "Foil-blocked slipcase with a clear belly band and an acrylic standee inside."
+    },
+    {
+      "id": 29,
+      "name": "Jumanji Gotham Mug",
+      "category": "Movies",
+      "image": "/assets/images/poster-joker.jpg",
+      "price": 48,
+      "priceRange": "$48 - $14",
+      "description": "Ships flat in a board-backed envelope with a corner guard on every side."
+    },
+    {
+      "id": 30,
+      "name": "Avengers Comic Cover Print",
+      "category": "Movies",
+      "image": "/assets/images/joker.jpg",
+      "price": 12,
+      "priceRange": "$12 - $19",
+      "description": "Numbered first print, packed with a letterpress card about the scene it was drawn from."
+    },
+    {
+      "id": 31,
+      "name": "Dune House Screenprint",
+      "category": "Movies",
+      "image": "/assets/images/poster-avengers.jpg",
+      "price": 18,
+      "priceRange": "$18 - $26",
+      "description": "A1 giclée print on heavyweight matte stock, numbered on the back and shipped in a rigid tube."
+    },
+    {
+      "id": 32,
+      "name": "Interstellar NASA Tote",
+      "category": "Movies",
+      "image": "/assets/images/avengers.jpg",
+      "price": 24,
+      "priceRange": "$24 - $34",
+      "description": "Colour graded against a reference reel, then checked under daylight before it ships."
+    },
+    {
+      "id": 33,
+      "name": "Joker Laugh Line Poster",
+      "category": "Movies",
+      "image": "/assets/images/poster-jumanji.jpg",
+      "price": 30,
+      "priceRange": "$30 - $48",
+      "description": "Hand finished, so no two pieces carry exactly the same grain, glaze or fade."
+    },
+    {
+      "id": 34,
+      "name": "The Grand Budapest Hotel Concierge Pin Set",
+      "category": "Movies",
+      "image": "/assets/images/jumanji.jpg",
+      "price": 42,
+      "priceRange": "$42 - $12",
+      "description": "Small batch, made to order. Once the run is gone it does not come back to the vault."
+    },
+    {
+      "id": 35,
+      "name": "Arrival Heptapod Tea towel",
+      "category": "Movies",
+      "image": "/assets/images/poster-avengers-2.jpg",
+      "price": 9,
+      "priceRange": "$9 - $18",
+      "description": "A collector shelf piece with a weighted base, so it stands up without leaning on anything."
+    },
+    {
+      "id": 36,
+      "name": "Mad Max Chrome Keychain",
+      "category": "Movies",
+      "image": "/assets/images/avengers-2.png",
+      "price": 16,
+      "priceRange": "$16 - $24",
+      "description": "Foil-blocked slipcase with a clear belly band and an acrylic standee inside."
+    },
+    {
+      "id": 37,
+      "name": "Peaky Blinders Poster",
+      "category": "TV",
+      "image": "/assets/images/poster-peaky-blinders.jpg",
+      "price": 16,
+      "priceRange": "$16 - $24",
+      "description": "Numbered first print, packed with a letterpress card about the scene it was drawn from."
+    },
+    {
+      "id": 38,
+      "name": "Harry Potter Box Set",
+      "category": "TV",
+      "image": "/assets/images/poster-harry-potter.jpg",
+      "price": 22,
+      "priceRange": "$22 - $30",
+      "description": "A1 giclée print on heavyweight matte stock, numbered on the back and shipped in a rigid tube."
+    },
+    {
+      "id": 39,
+      "name": "La Casa de Papel Poster",
+      "category": "TV",
+      "image": "/assets/images/poster-la-casa-de-papel.jpg",
+      "price": 28,
+      "priceRange": "$28 - $42",
+      "description": "Colour graded against a reference reel, then checked under daylight before it ships."
+    },
+    {
+      "id": 40,
+      "name": "The Last of Us Firefly Print",
+      "category": "TV",
+      "image": "/assets/images/tv shows.png",
+      "price": 38,
+      "priceRange": "$38 - $9",
+      "description": "Hand finished, so no two pieces carry exactly the same grain, glaze or fade."
+    },
+    {
+      "id": 41,
+      "name": "Stranger Things Upside Down Mug",
+      "category": "TV",
+      "image": "/assets/images/tv show 1.png",
+      "price": 55,
+      "priceRange": "$55 - $16",
+      "description": "Small batch, made to order. Once the run is gone it does not come back to the vault."
+    },
+    {
+      "id": 42,
+      "name": "Game of Thrones Westeros Map Print",
+      "category": "TV",
+      "image": "/assets/images/tv show 2.png",
+      "price": 14,
+      "priceRange": "$14 - $22",
+      "description": "A collector shelf piece with a weighted base, so it stands up without leaning on anything."
+    },
+    {
+      "id": 43,
+      "name": "Peaky Blinders Thomas Shelby Cap",
+      "category": "TV",
+      "image": "/assets/images/tv show 3.png",
+      "price": 19,
+      "priceRange": "$19 - $28",
+      "description": "Foil-blocked slipcase with a clear belly band and an acrylic standee inside."
+    },
+    {
+      "id": 44,
+      "name": "Harry Potter Hogwarts Tote",
+      "category": "TV",
+      "image": "/assets/images/tv show 4.png",
+      "price": 26,
+      "priceRange": "$26 - $38",
+      "description": "Ships flat in a board-backed envelope with a corner guard on every side."
+    },
+    {
+      "id": 45,
+      "name": "undefined Shabby Whiskey Set",
+      "category": "TV",
+      "image": "/assets/images/poster-peaky-blinders.jpg",
+      "price": 34,
+      "priceRange": "$34 - $55",
+      "description": "Numbered first print, packed with a letterpress card about the scene it was drawn from."
+    },
+    {
+      "id": 46,
+      "name": "undefined Dobby Figurine",
+      "category": "TV",
+      "image": "/assets/images/poster-harry-potter.jpg",
+      "price": 48,
+      "priceRange": "$48 - $14",
+      "description": "A1 giclée print on heavyweight matte stock, numbered on the back and shipped in a rigid tube."
+    },
+    {
+      "id": 47,
+      "name": "undefined Bauhaus Wall Clock",
+      "category": "TV",
+      "image": "/assets/images/poster-la-casa-de-papel.jpg",
+      "price": 12,
+      "priceRange": "$12 - $19",
+      "description": "Colour graded against a reference reel, then checked under daylight before it ships."
+    },
+    {
+      "id": 48,
+      "name": "undefined Dossier Notebook",
+      "category": "TV",
+      "image": "/assets/images/tv shows.png",
+      "price": 18,
+      "priceRange": "$18 - $26",
+      "description": "Hand finished, so no two pieces carry exactly the same grain, glaze or fade."
+    },
+    {
+      "id": 49,
+      "name": "Stray Kids Photocard Set",
+      "category": "K-Pop",
+      "image": "/assets/images/kpop1.jpg",
+      "price": 18,
+      "priceRange": "$18 - $26",
+      "description": "A collector shelf piece with a weighted base, so it stands up without leaning on anything."
+    },
+    {
+      "id": 50,
+      "name": "aespa Lightstick",
+      "category": "K-Pop",
+      "image": "/assets/images/kpop2.jpg",
+      "price": 24,
+      "priceRange": "$24 - $34",
+      "description": "Foil-blocked slipcase with a clear belly band and an acrylic standee inside."
+    },
+    {
+      "id": 51,
+      "name": "BLACKPINK Photobook",
+      "category": "K-Pop",
+      "image": "/assets/images/k-pop.png",
+      "price": 30,
+      "priceRange": "$30 - $48",
+      "description": "Ships flat in a board-backed envelope with a corner guard on every side."
+    },
+    {
+      "id": 52,
+      "name": "Stray Kids Tour Tee",
+      "category": "K-Pop",
+      "image": "/assets/images/kpop1.jpg",
+      "price": 42,
+      "priceRange": "$42 - $12",
+      "description": "Numbered first print, packed with a letterpress card about the scene it was drawn from."
+    },
+    {
+      "id": 53,
+      "name": "aespa Concert Poster",
+      "category": "K-Pop",
+      "image": "/assets/images/kpop2.jpg",
+      "price": 9,
+      "priceRange": "$9 - $18",
+      "description": "A1 giclée print on heavyweight matte stock, numbered on the back and shipped in a rigid tube."
+    },
+    {
+      "id": 54,
+      "name": "BLACKPINK Photocard Set",
+      "category": "K-Pop",
+      "image": "/assets/images/k-pop.png",
+      "price": 16,
+      "priceRange": "$16 - $24",
+      "description": "Colour graded against a reference reel, then checked under daylight before it ships."
+    },
+    {
+      "id": 55,
+      "name": "NewJeans Lightstick",
+      "category": "K-Pop",
+      "image": "/assets/images/kpop1.jpg",
+      "price": 22,
+      "priceRange": "$22 - $30",
+      "description": "Hand finished, so no two pieces carry exactly the same grain, glaze or fade."
+    },
+    {
+      "id": 56,
+      "name": "Stray Kids Photobook",
+      "category": "K-Pop",
+      "image": "/assets/images/kpop2.jpg",
+      "price": 28,
+      "priceRange": "$28 - $42",
+      "description": "Small batch, made to order. Once the run is gone it does not come back to the vault."
+    },
+    {
+      "id": 57,
+      "name": "aespa Tour Tee",
+      "category": "K-Pop",
+      "image": "/assets/images/k-pop.png",
+      "price": 38,
+      "priceRange": "$38 - $9",
+      "description": "A collector shelf piece with a weighted base, so it stands up without leaning on anything."
+    },
+    {
+      "id": 58,
+      "name": "BLACKPINK Concert Poster",
+      "category": "K-Pop",
+      "image": "/assets/images/kpop1.jpg",
+      "price": 55,
+      "priceRange": "$55 - $16",
+      "description": "Foil-blocked slipcase with a clear belly band and an acrylic standee inside."
+    },
+    {
+      "id": 59,
+      "name": "SEVENTEEN Get Up Poster",
+      "category": "K-Pop",
+      "image": "/assets/images/kpop2.jpg",
+      "price": 14,
+      "priceRange": "$14 - $22",
+      "description": "Ships flat in a board-backed envelope with a corner guard on every side."
+    },
+    {
+      "id": 60,
+      "name": "NewJeans Debut Poster",
+      "category": "K-Pop",
+      "image": "/assets/images/k-pop.png",
+      "price": 19,
+      "priceRange": "$19 - $28",
+      "description": "Numbered first print, packed with a letterpress card about the scene it was drawn from."
+    },
+    {
+      "id": 61,
+      "name": "Superman Trade Paperback",
+      "category": "Comics",
+      "image": "/assets/images/comics1.png",
+      "price": 19,
+      "priceRange": "$19 - $28",
+      "description": "Colour graded against a reference reel, then checked under daylight before it ships."
+    },
+    {
+      "id": 62,
+      "name": "Spider-Man Deluxe Edition",
+      "category": "Comics",
+      "image": "/assets/images/comics.png",
+      "price": 26,
+      "priceRange": "$26 - $38",
+      "description": "Hand finished, so no two pieces carry exactly the same grain, glaze or fade."
+    },
+    {
+      "id": 63,
+      "name": "Batman Canvas Tote",
+      "category": "Comics",
+      "image": "/assets/images/bg comics.png",
+      "price": 34,
+      "priceRange": "$34 - $55",
+      "description": "Small batch, made to order. Once the run is gone it does not come back to the vault."
+    },
+    {
+      "id": 64,
+      "name": "Superman Pin Set",
+      "category": "Comics",
+      "image": "/assets/images/comics1.png",
+      "price": 48,
+      "priceRange": "$48 - $14",
+      "description": "A collector shelf piece with a weighted base, so it stands up without leaning on anything."
+    },
+    {
+      "id": 65,
+      "name": "Spider-Man Variant Cover Print",
+      "category": "Comics",
+      "image": "/assets/images/comics.png",
+      "price": 12,
+      "priceRange": "$12 - $19",
+      "description": "Foil-blocked slipcase with a clear belly band and an acrylic standee inside."
+    },
+    {
+      "id": 66,
+      "name": "Batman Art Book",
+      "category": "Comics",
+      "image": "/assets/images/bg comics.png",
+      "price": 18,
+      "priceRange": "$18 - $26",
+      "description": "Ships flat in a board-backed envelope with a corner guard on every side."
+    },
+    {
+      "id": 67,
+      "name": "Wonder Woman Trade Paperback",
+      "category": "Comics",
+      "image": "/assets/images/comics1.png",
+      "price": 24,
+      "priceRange": "$24 - $34",
+      "description": "Numbered first print, packed with a letterpress card about the scene it was drawn from."
+    },
+    {
+      "id": 68,
+      "name": "Superman Deluxe Edition",
+      "category": "Comics",
+      "image": "/assets/images/comics.png",
+      "price": 30,
+      "priceRange": "$30 - $48",
+      "description": "A1 giclée print on heavyweight matte stock, numbered on the back and shipped in a rigid tube."
+    },
+    {
+      "id": 69,
+      "name": "Spider-Man Canvas Tote",
+      "category": "Comics",
+      "image": "/assets/images/bg comics.png",
+      "price": 42,
+      "priceRange": "$42 - $12",
+      "description": "Colour graded against a reference reel, then checked under daylight before it ships."
+    },
+    {
+      "id": 70,
+      "name": "Batman Pin Set",
+      "category": "Comics",
+      "image": "/assets/images/comics1.png",
+      "price": 9,
+      "priceRange": "$9 - $18",
+      "description": "Hand finished, so no two pieces carry exactly the same grain, glaze or fade."
+    },
+    {
+      "id": 71,
+      "name": "X-Men Variant Cover Print",
+      "category": "Comics",
+      "image": "/assets/images/comics.png",
+      "price": 16,
+      "priceRange": "$16 - $24",
+      "description": "Small batch, made to order. Once the run is gone it does not come back to the vault."
+    },
+    {
+      "id": 72,
+      "name": "The Flash Art Book",
+      "category": "Comics",
+      "image": "/assets/images/bg comics.png",
+      "price": 22,
+      "priceRange": "$22 - $30",
+      "description": "A collector shelf piece with a weighted base, so it stands up without leaning on anything."
+    },
+    {
+      "id": 73,
+      "name": "Jujutsu Kaisen Vol. 1-3 Slipcase",
+      "category": "Manga",
+      "image": "/assets/images/manga1.png",
+      "price": 22,
+      "priceRange": "$22 - $30",
+      "description": "Ships flat in a board-backed envelope with a corner guard on every side."
+    },
+    {
+      "id": 74,
+      "name": "One Piece Vol. 4-6 Slipcase",
+      "category": "Manga",
+      "image": "/assets/images/manga2.png",
+      "price": 28,
+      "priceRange": "$28 - $42",
+      "description": "Numbered first print, packed with a letterpress card about the scene it was drawn from."
+    },
+    {
+      "id": 75,
+      "name": "Attack on Titan Colossal Print",
+      "category": "Manga",
+      "image": "/assets/images/manga.png",
+      "price": 38,
+      "priceRange": "$38 - $9",
+      "description": "A1 giclée print on heavyweight matte stock, numbered on the back and shipped in a rigid tube."
+    },
+    {
+      "id": 76,
+      "name": "Chainsaw Man Power Figure",
+      "category": "Manga",
+      "image": "/assets/images/manga1.png",
+      "price": 55,
+      "priceRange": "$55 - $16",
+      "description": "Colour graded against a reference reel, then checked under daylight before it ships."
+    },
+    {
+      "id": 77,
+      "name": "Demon Slayer Infinity Castle Print",
+      "category": "Manga",
+      "image": "/assets/images/manga2.png",
+      "price": 14,
+      "priceRange": "$14 - $22",
+      "description": "Hand finished, so no two pieces carry exactly the same grain, glaze or fade."
+    },
+    {
+      "id": 78,
+      "name": "Jujutsu Kaisen Vol. 7-9 Slipcase",
+      "category": "Manga",
+      "image": "/assets/images/manga.png",
+      "price": 19,
+      "priceRange": "$19 - $28",
+      "description": "Small batch, made to order. Once the run is gone it does not come back to the vault."
+    },
+    {
+      "id": 79,
+      "name": "One Piece Vol. 10-12 Slipcase",
+      "category": "Manga",
+      "image": "/assets/images/manga1.png",
+      "price": 26,
+      "priceRange": "$26 - $38",
+      "description": "A collector shelf piece with a weighted base, so it stands up without leaning on anything."
+    },
+    {
+      "id": 80,
+      "name": "Attack on Titan Wado Mug",
+      "category": "Manga",
+      "image": "/assets/images/manga2.png",
+      "price": 34,
+      "priceRange": "$34 - $55",
+      "description": "Foil-blocked slipcase with a clear belly band and an acrylic standee inside."
+    },
+    {
+      "id": 81,
+      "name": "Chainsaw Man Demon Slayer Poster",
+      "category": "Manga",
+      "image": "/assets/images/manga.png",
+      "price": 48,
+      "priceRange": "$48 - $14",
+      "description": "Ships flat in a board-backed envelope with a corner guard on every side."
+    },
+    {
+      "id": 82,
+      "name": "Demon Slayer Vinland Saga Print",
+      "category": "Manga",
+      "image": "/assets/images/manga1.png",
+      "price": 12,
+      "priceRange": "$12 - $19",
+      "description": "Numbered first print, packed with a letterpress card about the scene it was drawn from."
+    },
+    {
+      "id": 83,
+      "name": "Vinland Saga Quanxi Panel Print",
+      "category": "Manga",
+      "image": "/assets/images/manga2.png",
+      "price": 18,
+      "priceRange": "$18 - $26",
+      "description": "A1 giclée print on heavyweight matte stock, numbered on the back and shipped in a rigid tube."
+    },
+    {
+      "id": 84,
+      "name": "Jujutsu Kaisen Anime Desk Clock",
+      "category": "Manga",
+      "image": "/assets/images/manga.png",
+      "price": 24,
+      "priceRange": "$24 - $34",
+      "description": "Colour graded against a reference reel, then checked under daylight before it ships."
+    }
+  ]
+}

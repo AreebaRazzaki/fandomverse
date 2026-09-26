@@ -1,0 +1,122 @@
+/* Save-for-later control. It sits above whatever card it is dropped into, so a
+   click never opens the card underneath it. Colours come from --mark-* so the
+   same component reads correctly on the editorial, trailer and event pages. */
+
+.bookmark {
+  --mark-accent: #ffc247;
+  --mark-ink: #0a0710;
+  position: relative;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.bookmark-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 12px;
+  border: 1.5px solid var(--mark-line, rgba(255, 255, 255, .3));
+  color: var(--mark-ink, #f4f1fb);
+  background: var(--mark-face, #0d0b14);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .4);
+  cursor: pointer;
+  clip-path: polygon(9px 0, 100% 0, calc(100% - 9px) 100%, 0 100%);
+  transition: color 200ms ease, background 200ms ease, border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+}
+
+.bookmark-toggle svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linejoin: round; }
+
+.bookmark-toggle span {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.bookmark-toggle:hover { transform: translateY(-2px); border-color: var(--mark-accent); color: var(--mark-accent); box-shadow: 0 6px 20px rgba(0, 0, 0, .5); }
+
+.bookmark.is-on .bookmark-toggle {
+  color: var(--mark-on-ink, #100c1a);
+  border-color: var(--mark-accent);
+  background: var(--mark-accent);
+  box-shadow: 0 6px 22px color-mix(in srgb, var(--mark-accent), transparent 55%);
+}
+
+.bookmark.is-on .bookmark-toggle svg { fill: currentColor; }
+
+.bookmark-edit {
+  padding: 6px 10px;
+  border: 1px solid var(--mark-line, rgba(255, 255, 255, .22));
+  color: var(--mark-ink, #f4f1fb);
+  background: var(--mark-face, rgba(6, 4, 10, .74));
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  clip-path: polygon(7px 0, 100% 0, calc(100% - 7px) 100%, 0 100%);
+}
+
+.bookmark-edit:hover { color: var(--mark-accent); border-color: var(--mark-accent); }
+
+.bookmark-note {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 10px);
+  z-index: 8;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  width: 244px;
+  padding: 14px;
+  border: 1px solid var(--mark-accent);
+  color: var(--mark-ink, #f4f1fb);
+  background: var(--mark-panel, #0a0710);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, .55), 0 0 26px color-mix(in srgb, var(--mark-accent), transparent 72%);
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+}
+
+.bookmark-note-head { display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 900; letter-spacing: .2em; text-transform: uppercase; }
+.bookmark-note-head b { display: grid; place-items: center; width: 18px; height: 18px; color: var(--mark-ink); background: var(--mark-accent); font-size: 10px; }
+.bookmark-note-head i { color: var(--mark-muted, #a79dbe); font-style: normal; }
+
+.bookmark-note input {
+  width: 100%;
+  padding: 10px 11px;
+  border: 1px solid var(--mark-line, rgba(255, 255, 255, .22));
+  color: var(--mark-ink, #f4f1fb);
+  background: transparent;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+}
+
+.bookmark-note input::placeholder { color: var(--mark-muted, #a79dbe); }
+.bookmark-note input:focus { outline: none; border-color: var(--mark-accent); }
+
+.bookmark-note-foot { display: flex; justify-content: flex-end; gap: 8px; }
+.bookmark-note-foot button {
+  padding: 8px 13px;
+  border: 1px solid var(--mark-line, rgba(255, 255, 255, .22));
+  color: var(--mark-ink, #f4f1fb);
+  background: transparent;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.bookmark-note-foot button.is-primary { color: var(--mark-ink); border-color: var(--mark-accent); background: var(--mark-accent); }
+
+/* The note field drops downward on cards, because the toggle sits at the top. */
+.card-save .bookmark-note,
+.pass-ticket-save .bookmark-note { top: calc(100% + 10px); bottom: auto; }

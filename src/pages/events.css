@@ -1,0 +1,555 @@
+/* FANDOM PASSPORT — event page.
+   Everything a pass needs: a hero, a featured pass, filters, ticket cards and a
+   stubbed modal. Colours are per-category accents, so light and dark both stay
+   readable without a second palette. */
+
+.pass-page {
+  --gold: #ffc247;
+  --paper: #f4f1fa;
+  --muted: #a99cbe;
+  min-height: 100vh;
+  color: var(--paper);
+  background: #07060d;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.pass-page.theme-light { --paper: #14161d; --muted: #4a4e57; background: #f3f1f7; }
+
+.pass-page h1, .pass-page h2 { margin: 0; font-weight: 900; letter-spacing: -.02em; text-transform: uppercase; }
+.pass-page em { font-style: normal; }
+
+.pass-note { max-width: 640px; margin: 40px auto; padding: 0 24px; color: var(--muted); font-size: 14px; font-weight: 700; text-align: center; }
+.pass-note-error { color: #ff6b81; }
+.pass-note-error button { margin-left: 8px; padding: 8px 14px; border: 1px solid currentColor; color: inherit; background: none; font-size: 10px; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; cursor: pointer; }
+
+/* ---------- hero ---------- */
+
+.pass-hero {
+  position: relative;
+  isolation: isolate;
+  padding: 22px max(24px, calc((100vw - 1440px) / 2)) 52px;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 50% 0%, #1a1030 0%, #07060d 62%),
+    linear-gradient(180deg, rgba(255, 194, 71, .07), transparent 40%);
+}
+
+/* The light stage keeps a warm paper tone with real depth, so the passport
+   never washes out into a blank white band. */
+.theme-light .pass-hero {
+  background:
+    radial-gradient(120% 90% at 50% 0%, #fff6e2 0%, #f6ecf7 46%, #e6dcf0 100%),
+    linear-gradient(180deg, rgba(214, 158, 30, .12), transparent 46%);
+}
+
+/* Floating geometry: the stage reads as a designed backdrop, never empty. */
+.pass-hero-shapes { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+
+.pass-shape {
+  position: absolute;
+  display: block;
+  border: 1.5px solid rgba(255, 194, 71, .3);
+  background: rgba(255, 194, 71, .07);
+  animation: pass-drift 22s ease-in-out infinite alternate;
+}
+
+.pass-shape.is-a { top: 12%; left: 5%; width: 128px; height: 128px; border-radius: 50%; }
+.pass-shape.is-b { top: 20%; right: 7%; width: 96px; height: 96px; transform: rotate(22deg); animation-delay: -5s; }
+.pass-shape.is-c { bottom: 16%; left: 12%; width: 74px; height: 74px; border-radius: 20px 4px 20px 4px; transform: rotate(-14deg); animation-delay: -9s; }
+.pass-shape.is-d { right: 16%; bottom: 22%; width: 150px; height: 150px; border-radius: 50%; border-style: dashed; animation-delay: -13s; }
+.pass-shape.is-e { top: 46%; left: 22%; width: 54px; height: 54px; transform: rotate(45deg); animation-delay: -17s; }
+
+.theme-light .pass-shape { border-color: rgba(178, 124, 18, .32); background: rgba(214, 158, 30, .1); }
+
+@keyframes pass-drift {
+  from { translate: 0 0; }
+  to { translate: 0 -26px; }
+}
+
+.pass-hero-wash {
+  position: absolute;
+  inset: -30% -10%;
+  z-index: -1;
+  background: conic-gradient(from 210deg, transparent, rgba(255, 194, 71, .2), transparent 42%, rgba(138, 209, 79, .16), transparent 70%);
+  animation: pass-spin 34s linear infinite;
+}
+
+@keyframes pass-spin { to { transform: rotate(360deg); } }
+
+.pass-hero-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px);
+  background-size: 58px 58px;
+  -webkit-mask-image: radial-gradient(70% 60% at 50% 40%, #000, transparent 76%);
+  mask-image: radial-gradient(70% 60% at 50% 40%, #000, transparent 76%);
+}
+
+.pass-hero-canvas { z-index: -1; opacity: .9; }
+
+/* Convention-floor scenery: a lit gate, festoon wire, a side tower and a crowd
+   band, all kept faint so the headline still reads first. */
+.pass-scenery { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+
+.pass-scenery-gate {
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: min(560px, 78vw);
+  height: 62%;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(120% 100% at 50% 120%, rgba(255, 194, 71, .34), transparent 62%),
+    linear-gradient(90deg, transparent 46%, rgba(255, 194, 71, .16) 46% 47%, transparent 47% 53%, rgba(255, 194, 71, .16) 53% 54%, transparent 54%);
+  -webkit-mask-image: radial-gradient(70% 100% at 50% 100%, #000, transparent 74%);
+  mask-image: radial-gradient(70% 100% at 50% 100%, #000, transparent 74%);
+}
+
+.pass-scenery-wire { position: absolute; top: 0; width: 140%; height: 46%; opacity: .5; }
+.pass-scenery-wire::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle, rgba(255, 224, 150, .8) 1.6px, transparent 2.4px) repeat-x; background-size: 34px 34px; -webkit-mask-image: linear-gradient(180deg, #000, transparent 78%); mask-image: linear-gradient(180deg, #000, transparent 78%); }
+.pass-scenery-wire-a { left: -20%; transform: rotate(7deg); }
+.pass-scenery-wire-b { right: -20%; transform: rotate(-6deg) scaleX(-1); }
+
+.pass-scenery-tower {
+  position: absolute;
+  right: 6%;
+  bottom: 0;
+  width: 92px;
+  height: 46%;
+  border: 1px solid rgba(255, 194, 71, .2);
+  border-bottom: 0;
+  background: linear-gradient(180deg, transparent, rgba(255, 194, 71, .1));
+  clip-path: polygon(50% 0, 100% 22%, 100% 100%, 0 100%, 0 22%);
+  -webkit-mask-image: linear-gradient(180deg, #000 40%, transparent);
+  mask-image: linear-gradient(180deg, #000 40%, transparent);
+}
+
+.pass-scenery-crowd {
+  position: absolute;
+  inset: auto 0 0;
+  height: 16%;
+  background: repeating-linear-gradient(90deg, rgba(255, 255, 255, .12) 0 2px, transparent 2px 15px), linear-gradient(180deg, transparent, rgba(4, 3, 10, .5));
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000);
+  mask-image: linear-gradient(180deg, transparent, #000);
+}
+
+.theme-light .pass-scenery-gate { background: radial-gradient(120% 100% at 50% 120%, rgba(214, 158, 30, .26), transparent 62%); }
+.theme-light .pass-scenery-crowd { background: repeating-linear-gradient(90deg, rgba(20, 22, 29, .12) 0 2px, transparent 2px 15px), linear-gradient(180deg, transparent, rgba(20, 22, 29, .08)); }
+
+/* The wallet sits directly under the nav, so the tickets are one click away. */
+.pass-hero-top {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 46px;
+  margin-bottom: 34px;
+}
+
+.pass-hero-inner { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; text-align: center; }
+
+.pass-kicker { margin: 0 0 16px; color: var(--gold); font-size: 11px; font-weight: 900; letter-spacing: .3em; text-transform: uppercase; }
+
+.pass-hero h1 {
+  margin: 0 auto;
+  font-size: clamp(26px, 3.4vw, 46px);
+  line-height: 1;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 0 48px rgba(255, 194, 71, .34);
+}
+
+.theme-light .pass-hero h1 { color: #14161d; text-shadow: none; }
+
+.pass-hero h1 em { color: transparent; -webkit-text-stroke: 2px var(--gold); text-shadow: 0 0 40px rgba(255, 194, 71, .45); }
+
+.pass-tagline { max-width: 54ch; margin: 16px auto 0; color: var(--muted); font-size: 14.5px; font-weight: 600; line-height: 1.55; }
+
+.pass-hero-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 28px; margin-top: 26px; }
+.pass-hero-meta span { color: var(--muted); font-size: 10px; font-weight: 900; letter-spacing: .22em; text-transform: uppercase; }
+.pass-hero-meta b { display: block; margin-bottom: 4px; color: var(--paper); font-size: 21px; font-weight: 900; letter-spacing: -.02em; }
+
+.pass-hero-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; margin-top: 26px; }
+
+.pass-wallet-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  background: rgba(7, 6, 13, .4);
+  font-family: Arial, sans-serif;
+  font-size: 10.5px;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  transition: color 200ms ease, background 200ms ease, transform 200ms ease;
+}
+
+.theme-light .pass-wallet-open { background: rgba(255, 255, 255, .72); }
+
+.pass-wallet-open b { display: grid; place-items: center; min-width: 22px; padding: 3px 5px; border-radius: 8px 3px 8px 3px; color: #100c1a; background: var(--gold); font-size: 11px; }
+.pass-wallet-open:hover { color: #100c1a; background: var(--gold); transform: translateY(-2px); }
+.pass-wallet-open:hover b { color: var(--gold); background: #100c1a; }
+.pass-hero-hint { margin: 0; color: var(--muted); font-size: 15px; font-weight: 700; line-height: 1.55; letter-spacing: .01em; }
+
+.pass-hero-ribbon {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: -1;
+  display: flex;
+  gap: 0;
+  margin: 0;
+  padding: 9px 0;
+  overflow: hidden;
+  border-top: 1px dashed rgba(255, 194, 71, .24);
+  list-style: none;
+}
+
+.pass-hero-ribbon li { flex: none; padding: 0 22px; color: rgba(255, 194, 71, .5); font-size: 9.5px; font-weight: 900; letter-spacing: .24em; text-transform: uppercase; }
+.pass-hero-ribbon li::after { content: '·'; margin-left: 44px; color: rgba(255, 194, 71, .28); }
+.theme-light .pass-hero-ribbon li { color: rgba(122, 90, 12, .55); }
+.theme-light .pass-hero-ribbon li::after { color: rgba(122, 90, 12, .3); }
+
+/* ---------- flagship and booking marks on the grid card ---------- */
+
+.pass-ticket.is-flagship { border-color: color-mix(in srgb, var(--pass-accent), transparent 12%); box-shadow: 0 0 0 1px color-mix(in srgb, var(--gold), transparent 62%), 0 18px 40px rgba(0, 0, 0, .34); }
+
+.pass-ticket-flag,
+.pass-ticket-done {
+  position: absolute;
+  z-index: 5;
+  top: 10px;
+  padding: 6px 10px;
+  border-radius: 9px 3px 9px 3px;
+  font-size: 8.5px;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.pass-ticket-flag { left: 12px; bottom: 10px; color: #100c1a; background: var(--gold); }
+.pass-ticket-done { left: 10px; color: #100c1a; background: #4ade80; }
+
+/* The booked state and its cancel cross live on the right, because the left
+   corner of the card is already taken by the save control. */
+.pass-ticket-booked {
+  position: absolute;
+  z-index: 6;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 5px 5px 11px;
+  border-radius: 11px 3px 11px 3px;
+  color: #0d1a12;
+  background: #4ade80;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .42);
+}
+
+.pass-ticket-booked b { font-size: 9px; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+
+.pass-ticket-booked button {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 7px 2px 7px 2px;
+  color: #0d1a12;
+  background: rgba(13, 26, 18, .16);
+  font-size: 10px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 180ms ease, background 180ms ease;
+}
+
+.pass-ticket-booked button:hover { color: #fff; background: #d92b4b; }
+
+
+/* ---------- filters ---------- */
+
+.pass-filters { position: sticky; top: 0; z-index: 40; display: grid; gap: 12px; padding: 20px max(24px, calc((100vw - 1240px) / 2)); border-top: 1px solid rgba(255, 255, 255, .1); border-bottom: 1px solid rgba(255, 255, 255, .1); background: color-mix(in srgb, #07060d, transparent 8%); backdrop-filter: blur(14px); }
+.theme-light .pass-filters { border-color: rgba(20, 22, 29, .12); background: rgba(243, 241, 247, .9); }
+
+.pass-filters-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.pass-chip, .pass-kind {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 1px solid rgba(255, 255, 255, .18);
+  color: var(--paper);
+  background: transparent;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  clip-path: polygon(9px 0, 100% 0, calc(100% - 9px) 100%, 0 100%);
+  transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.theme-light .pass-chip, .theme-light .pass-kind { border-color: rgba(20, 22, 29, .18); }
+.pass-chip i, .pass-kind i { color: var(--muted); font-size: 10px; font-style: normal; }
+
+.pass-chip:hover { color: var(--chip-accent); border-color: var(--chip-accent); }
+
+.pass-chip.is-active {
+  color: #100c1a;
+  border-color: var(--chip-accent);
+  background: var(--chip-accent);
+}
+
+.pass-chip.is-active i { color: #100c1a; }
+.pass-kind.is-active { color: var(--gold); border-color: var(--gold); }
+
+.pass-filters-count { margin: 0; color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.pass-filters-count b { color: var(--paper); }
+
+/* ---------- ticket grid ---------- */
+
+.pass-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; max-width: 1240px; margin: 40px auto 0; padding: 0 24px; }
+
+.pass-ticket {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 396px;
+  border: 1px solid color-mix(in srgb, var(--pass-accent), transparent 56%);
+  color: var(--paper);
+  background: color-mix(in srgb, var(--pass-accent), transparent 94%);
+  /* The notched corner used to be a clip-path, which cropped the save note the
+     moment it opened past the card edge. A radius keeps the angled silhouette
+     and clips nothing. */
+  border-radius: 22px 8px 22px 8px;
+  transition: transform 260ms cubic-bezier(.16, .82, .25, 1), box-shadow 260ms ease;
+}
+
+.theme-dark .pass-ticket { background: #0d0a16; }
+.pass-ticket:hover, .pass-ticket:focus-within { transform: translateY(-7px); box-shadow: 0 24px 48px rgba(0, 0, 0, .44), 0 0 40px color-mix(in srgb, var(--pass-accent), transparent 68%); }
+
+.pass-ticket-edge { position: absolute; inset: 0 auto 0 0; width: 4px; background: linear-gradient(180deg, var(--pass-accent), transparent 72%); }
+
+/* Artwork is framed rather than cropped, so a tall poster keeps its full frame. */
+.pass-ticket-media { position: relative; display: grid; place-items: center; height: 190px; padding: 12px; overflow: hidden; }
+.pass-ticket-media img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 10px; }
+
+.pass-ticket-stub { position: absolute; right: 0; bottom: 0; display: grid; place-items: center; min-width: 58px; padding: 8px 6px; color: #100c1a; background: var(--pass-accent); }
+.pass-ticket-stub b { font-size: 20px; font-weight: 900; line-height: 1; }
+.pass-ticket-stub i { font-size: 9px; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+
+.pass-ticket-body { display: flex; flex-direction: column; gap: 7px; flex: 1 1 auto; padding: 18px 20px 12px; }
+.pass-ticket-flags { display: flex; align-items: center; gap: 7px; font-size: 9px; font-weight: 900; letter-spacing: .2em; text-transform: uppercase; }
+.pass-ticket-flags b { color: var(--pass-accent); }
+.pass-ticket-flags i { color: var(--muted); font-style: normal; }
+.pass-ticket-flags b.is-free { color: #4ade80; }
+.pass-ticket-flags b.is-limited { color: var(--gold); }
+.pass-ticket-flags b.is-selling { color: var(--pass-accent); }
+
+.pass-ticket-title { font-size: 17px; font-weight: 900; line-height: 1.14; text-transform: uppercase; }
+.pass-ticket-meta { color: var(--paper); font-size: 11px; font-weight: 800; opacity: .8; }
+.pass-ticket-loc { color: var(--muted); font-size: 11px; font-weight: 700; }
+
+.pass-ticket-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 20px 18px; border-top: 1px dashed color-mix(in srgb, var(--pass-accent), transparent 62%); }
+.pass-ticket-price { color: var(--pass-accent); font-size: 18px; font-weight: 900; }
+.pass-ticket-cta { color: var(--muted); font-size: 10px; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+
+.pass-ticket-hit { position: absolute; inset: 0; z-index: 4; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.pass-ticket-hit:focus-visible { outline: 3px solid var(--pass-accent); outline-offset: -6px; }
+
+.pass-ticket-save {
+  position: absolute;
+  z-index: 6;
+  top: 12px;
+  left: 12px;
+  --mark-accent: var(--pass-accent);
+  --mark-ink: #f6f2ff;
+  --mark-face: rgba(4, 3, 10, .8);
+  --mark-panel: #0a0714;
+  --mark-line: rgba(255, 255, 255, .26);
+  --mark-muted: #a99cbe;
+}
+
+/* The toggle hugs the card's left edge, so a right-anchored note panel would
+   hang off the card and off the first column. Anchor it to the left instead so
+   it grows into the card, and never wider than the viewport. */
+.pass-ticket-save .bookmark-note { left: 0; right: auto; width: min(244px, calc(100vw - 44px)); }
+
+.pass-more { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 46px 24px 70px; }
+.pass-more button { padding: 15px 30px; border: 1px solid var(--gold); color: var(--gold); background: none; font-family: Arial, sans-serif; font-size: 11px; font-weight: 900; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%); }
+.pass-more button:hover { color: #100c1a; background: var(--gold); }
+.pass-more span { color: var(--muted); font-size: 11px; font-weight: 900; letter-spacing: .14em; }
+
+/* ---------- modal ---------- */
+
+/* The panel centres itself with auto margins, so a tall sheet can never be
+   pushed above the fold with its heading out of reach. */
+.pass-modal { position: fixed; inset: 0; z-index: 90; display: flex; padding: 24px; overflow-y: auto; }
+.pass-overlay { position: fixed; inset: 0; background: rgba(3, 2, 8, .82); backdrop-filter: blur(6px); }
+
+/* Scrollbars are hidden inside the panels, so opening a pass never drops a
+   vertical scroll line down the middle of the design. */
+.pass-sheet,
+.pass-wallet { scrollbar-width: none; -ms-overflow-style: none; }
+.pass-sheet::-webkit-scrollbar,
+.pass-wallet::-webkit-scrollbar { width: 0; height: 0; display: none; }
+
+.pass-sheet {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  width: min(940px, 100%);
+  max-height: calc(100vh - 48px);
+  margin: auto;
+  overflow-y: auto;
+  border: 1px solid color-mix(in srgb, var(--pass-accent), transparent 34%);
+  border-radius: 26px 8px 26px 8px;
+  color: #f2eefb;
+  background: #0c0916;
+  box-shadow: 0 40px 90px rgba(0, 0, 0, .6);
+  /* The notched corner used to be a clip-path, which cropped the save note as
+     soon as it opened. A radius keeps the same silhouette and clips nothing. */
+  animation: pass-rise 260ms cubic-bezier(.16, .82, .25, 1);
+}
+
+@keyframes pass-rise { from { opacity: 0; transform: translateY(26px) scale(.98); } to { opacity: 1; transform: none; } }
+
+.pass-sheet-edge { position: absolute; inset: 0 auto 0 0; width: 4px; background: linear-gradient(180deg, var(--pass-accent), transparent 78%); }
+.pass-sheet-media { position: relative; display: grid; place-items: center; padding: 26px; overflow: hidden; background: color-mix(in srgb, var(--pass-accent), transparent 90%); }
+.pass-sheet-media img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 12px; }
+
+.pass-sheet-stub { position: absolute; bottom: 0; left: 0; display: grid; place-items: center; padding: 16px 22px; color: #100c1a; background: var(--pass-accent); }
+.pass-sheet-stub b { font-size: 34px; font-weight: 900; line-height: 1; }
+.pass-sheet-stub i { font-size: 10px; font-weight: 900; letter-spacing: .2em; text-transform: uppercase; }
+.pass-sheet-stub small { margin-top: 2px; font-size: 10px; font-weight: 900; letter-spacing: .16em; }
+
+.pass-sheet-body { padding: 34px 36px; min-width: 0; }
+.pass-sheet-kicker { margin: 0 0 12px; color: var(--pass-accent); font-size: 11.5px; font-weight: 900; letter-spacing: .24em; text-transform: uppercase; }
+/* The title used to sit flush against the sheet's top clip edge inside a 1.06
+   line box, which sliced the cap tops off 900-weight uppercase text. A real line
+   box plus headroom keeps every letter inside the scroll container. */
+.pass-sheet-body h2 { padding-top: 4px; font-size: clamp(26px, 3.2vw, 40px); line-height: 1.16; }
+.pass-sheet-desc { margin: 16px 0 0; color: #c3bade; font-size: 15px; font-weight: 600; line-height: 1.68; }
+.pass-sheet-loc { margin: 14px 0 0; color: var(--pass-accent); font-size: 13.5px; font-weight: 800; letter-spacing: .04em; }
+
+.pass-sheet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0 0; padding: 0; }
+.pass-sheet-grid div { padding: 12px 14px; border: 1px solid rgba(255, 255, 255, .1); }
+.pass-sheet-grid dt { color: var(--pass-accent); font-size: 10px; font-weight: 900; letter-spacing: .2em; text-transform: uppercase; }
+.pass-sheet-grid dd { margin: 6px 0 0; font-size: 14.5px; font-weight: 800; }
+
+.pass-sheet-list { display: grid; gap: 9px; margin: 22px 0 0; padding: 0; list-style: none; }
+.pass-sheet-list li { padding-left: 18px; color: #c3bade; font-size: 13.5px; font-weight: 700; line-height: 1.5; }
+.pass-sheet-list li::before { margin-left: -18px; margin-right: 9px; color: var(--pass-accent); content: '\2726'; }
+
+.pass-sheet-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 26px; padding-top: 20px; border-top: 1px dashed color-mix(in srgb, var(--pass-accent), transparent 56%); }
+.pass-sheet-price { color: var(--pass-accent); font-size: 28px; font-weight: 900; }
+.pass-status { padding: 7px 14px; border: 1px solid currentColor; font-size: 10px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; }
+.pass-status.is-free { color: #4ade80; }
+.pass-status.is-limited { color: var(--gold); }
+.pass-status.is-selling { color: var(--pass-accent); }
+
+.pass-sheet-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; }
+.pass-close { padding: 13px 22px; border: 1px solid rgba(255, 255, 255, .26); color: #f2eefb; background: none; font-family: Arial, sans-serif; font-size: 10px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; cursor: pointer; }
+.pass-close:hover { color: #100c1a; border-color: var(--pass-accent); background: var(--pass-accent); }
+.pass-sheet-actions .bookmark { --mark-accent: var(--pass-accent); --mark-ink: #f6f2ff; --mark-face: rgba(4, 3, 10, .8); --mark-panel: #0a0714; --mark-line: rgba(255, 255, 255, .26); --mark-muted: #a99cbe; position: relative; z-index: 9; }
+/* The note opens upward from a row that sits at the foot of the sheet, so it
+   lands inside the scroll box instead of being cropped by it. */
+.pass-sheet-actions .bookmark-note { right: 0; bottom: calc(100% + 10px); left: auto; width: 250px; max-width: calc(100vw - 64px); }
+
+/* ---------- booking ---------- */
+
+.pass-book { margin-top: 20px; padding: 16px 18px; border: 1px solid color-mix(in srgb, var(--pass-accent), transparent 58%); border-radius: 16px 5px 16px 5px; background: color-mix(in srgb, var(--pass-accent), transparent 92%); }
+.pass-book-lead { margin: 0 0 12px; color: var(--pass-accent); font-size: 10px; font-weight: 900; letter-spacing: .2em; text-transform: uppercase; }
+.pass-book-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+
+.pass-book-seats { display: inline-flex; align-items: center; border: 1px solid color-mix(in srgb, var(--pass-accent), transparent 52%); border-radius: 11px 4px 11px 4px; overflow: hidden; }
+.pass-book-seats button { width: 30px; height: 30px; padding: 0; border: 0; color: #f2eefb; background: color-mix(in srgb, var(--pass-accent), transparent 80%); font-size: 15px; font-weight: 900; cursor: pointer; }
+.pass-book-seats button:hover { color: #100c1a; background: var(--pass-accent); }
+.pass-book-seats b { min-width: 34px; font-size: 15px; font-weight: 900; text-align: center; }
+.pass-book-total { color: var(--paper); font-size: 17px; font-weight: 900; }
+
+.pass-book-go { margin-left: auto; padding: 12px 22px; border: 0; color: #100c1a; background: var(--pass-accent); font-family: Arial, sans-serif; font-size: 10.5px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; cursor: pointer; clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%); }
+.pass-book-go:hover { filter: brightness(1.12); }
+.pass-book-fine { margin: 12px 0 0; color: var(--muted); font-size: 10.5px; font-weight: 700; }
+
+.pass-book-done { display: grid; gap: 3px; margin: 0 0 12px; }
+.pass-book-done b { color: #4ade80; font-size: 13px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.pass-book-done span { color: var(--muted); font-size: 11.5px; font-weight: 700; }
+.pass-book-done-tools { display: flex; flex-wrap: wrap; gap: 10px; }
+.pass-book-done-tools button { padding: 10px 16px; border: 1px solid color-mix(in srgb, var(--pass-accent), transparent 52%); color: #f2eefb; background: none; font-family: Arial, sans-serif; font-size: 10px; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; cursor: pointer; }
+.pass-book-done-tools button:hover { color: #100c1a; background: var(--pass-accent); }
+.pass-book-done-tools .is-quiet { border-color: rgba(255, 255, 255, .2); color: var(--muted); }
+.pass-book-done-tools .is-quiet:hover { color: #ff8f9c; border-color: #ff8f9c; background: none; }
+
+/* ---------- ticket wallet ---------- */
+
+.pass-wallet { position: relative; z-index: 1; width: min(720px, 100%); max-height: calc(100vh - 48px); margin: auto; overflow-y: auto; border: 1px solid rgba(255, 194, 71, .32); border-radius: 26px 8px 26px 8px; color: #f2eefb; background: #0f0c19; box-shadow: 0 40px 90px rgba(0, 0, 0, .62); animation: pass-rise 240ms cubic-bezier(.16, .82, .25, 1); }
+/* The wallet stamp never steals a click, and the close cross always has a
+   target of its own. */
+.pass-wallet-stamp {
+  position: absolute;
+  bottom: 18px;
+  right: 22px;
+  padding: 8px 20px;
+  color: rgba(255, 194, 71, .5);
+  border: 2px solid rgba(255, 194, 71, .3);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .3em;
+  transform: rotate(9deg);
+  pointer-events: none;
+}
+
+.pass-wallet-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 26px 28px 18px; border-bottom: 1px dashed rgba(255, 194, 71, .24); }
+.pass-wallet-head strong { display: block; font-size: 19px; font-weight: 900; text-transform: uppercase; }
+.pass-wallet-head span { display: block; margin-top: 5px; color: var(--muted); font-size: 11.5px; font-weight: 700; }
+.pass-wallet-close { flex: none; width: 38px; height: 38px; border: 1px solid rgba(255, 255, 255, .22); border-radius: 11px 3px 11px 3px; color: #f2eefb; background: rgba(255, 255, 255, .06); font-size: 14px; line-height: 1; cursor: pointer; position: relative; z-index: 2; transition: color 180ms ease, border-color 180ms ease, background 180ms ease; }
+.pass-wallet-close:hover { color: #100c1a; border-color: var(--gold); background: var(--gold); }
+.pass-wallet-empty { margin: 0; padding: 30px 28px; color: var(--muted); font-size: 13px; font-weight: 700; line-height: 1.6; }
+
+.pass-wallet-list { display: grid; gap: 12px; margin: 0; padding: 20px 28px; list-style: none; }
+.pass-wallet-item { display: grid; grid-template-columns: 64px 1fr auto; align-items: center; gap: 16px; padding: 14px 16px; border: 1px solid color-mix(in srgb, var(--pass-accent), transparent 62%); border-radius: 14px 5px 14px 5px; background: color-mix(in srgb, var(--pass-accent), transparent 93%); }
+.pass-wallet-stub { display: grid; place-items: center; padding: 8px 4px; border-radius: 10px 3px 10px 3px; color: #100c1a; background: var(--pass-accent); }
+.pass-wallet-stub b { font-size: 20px; font-weight: 900; line-height: 1; }
+.pass-wallet-stub i { font-size: 8.5px; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+.pass-wallet-stub small { font-size: 8px; font-weight: 900; }
+.pass-wallet-body { display: grid; gap: 3px; }
+.pass-wallet-body b { font-size: 14px; font-weight: 900; text-transform: uppercase; }
+.pass-wallet-body span { color: var(--muted); font-size: 11px; font-weight: 700; }
+.pass-wallet-side { display: grid; justify-items: end; gap: 4px; }
+.pass-wallet-side b { color: var(--pass-accent); font-size: 13px; font-weight: 900; }
+.pass-wallet-side i { color: var(--paper); font-size: 12px; font-style: normal; font-weight: 800; }
+.pass-wallet-side button { padding: 6px 12px; border: 1px solid rgba(255, 255, 255, .2); color: var(--muted); background: none; font-size: 9.5px; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; cursor: pointer; }
+.pass-wallet-side button:hover { color: #ff8f9c; border-color: #ff8f9c; }
+.pass-wallet-clear { display: block; margin: 0 28px 26px; padding: 12px 20px; border: 1px solid rgba(255, 255, 255, .2); color: var(--muted); background: none; font-family: Arial, sans-serif; font-size: 10px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; cursor: pointer; }
+.pass-wallet-clear:hover { color: #ff8f9c; border-color: #ff8f9c; }
+
+@media (max-width: 1040px) {
+  .pass-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 720px) {
+  .pass-hero { padding: 104px 20px 46px; }
+  .pass-hero-meta { gap: 20px; }
+  .pass-grid { grid-template-columns: 1fr; }
+  .pass-sheet { grid-template-columns: 1fr; }
+  .pass-sheet-grid { grid-template-columns: 1fr; }
+  .pass-sheet-body { padding: 24px 22px; }
+  .pass-filters { padding: 16px 20px; }
+  .pass-wallet-item { grid-template-columns: 52px 1fr; }
+  .pass-wallet-side { grid-column: 1 / -1; justify-items: start; grid-auto-flow: column; justify-content: start; gap: 12px; }
+  .pass-book-go { margin-left: 0; }
+}

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import SiteNav from '../components/SiteNav';
+import SiteFooter from '../components/SiteFooter';
 import './home.css';
 
 const fandoms = [
@@ -133,27 +134,48 @@ const fandoms = [
 
 const portalFandoms = [fandoms[0], fandoms[1], fandoms[5], fandoms[4], fandoms[6], fandoms[2], fandoms[3]];
 
+const SLIDE_MS = 3000;
+const GLITCH_MS = 820;
+
 function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isGlitching, setIsGlitching] = useState(false);
   const [theme, setTheme] = useState(() => window.localStorage.getItem('fandomverse-theme') || 'dark');
   const transitionTimer = useRef(null);
+  const indexRef = useRef(0);
+  const glitchingRef = useRef(false);
+  const queuedRef = useRef(null);
   const activeFandom = fandoms[activeIndex];
 
+  // A request that lands while the glitch window is still open waits its turn
+  // instead of being dropped, so the rail never misses a press.
   const changeSlide = useCallback((nextIndex) => {
-    if (nextIndex === activeIndex || isGlitching) return;
+    if (nextIndex === indexRef.current) return;
+    if (glitchingRef.current) {
+      queuedRef.current = nextIndex;
+      return;
+    }
 
+    glitchingRef.current = true;
     setIsGlitching(true);
     transitionTimer.current = window.setTimeout(() => {
-      setActiveIndex(nextIndex);
+      const target = queuedRef.current === null ? nextIndex : queuedRef.current;
+      queuedRef.current = null;
+      glitchingRef.current = false;
+      transitionTimer.current = null;
+      setActiveIndex(target);
       setIsGlitching(false);
-    }, 820);
-  }, [activeIndex, isGlitching]);
+    }, GLITCH_MS);
+  }, []);
+
+  useEffect(() => {
+    indexRef.current = activeIndex;
+  }, [activeIndex]);
 
   useEffect(() => {
     const autoplayTimer = window.setTimeout(() => {
-      changeSlide((activeIndex + 1) % fandoms.length);
-    }, 5600);
+      changeSlide((indexRef.current + 1) % fandoms.length);
+    }, SLIDE_MS);
 
     return () => window.clearTimeout(autoplayTimer);
   }, [activeIndex, changeSlide]);
@@ -166,13 +188,13 @@ function Home() {
 
   useEffect(() => {
     const onKeyDown = (event) => {
-      if (event.key === 'ArrowRight') changeSlide((activeIndex + 1) % fandoms.length);
-      if (event.key === 'ArrowLeft') changeSlide((activeIndex - 1 + fandoms.length) % fandoms.length);
+      if (event.key === 'ArrowRight') changeSlide((indexRef.current + 1) % fandoms.length);
+      if (event.key === 'ArrowLeft') changeSlide((indexRef.current - 1 + fandoms.length) % fandoms.length);
     };
 
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [activeIndex, changeSlide]);
+  }, [changeSlide]);
 
   return (
     <main
@@ -303,15 +325,7 @@ function Home() {
         <div className="frequency-footer"><span>Signal moving through the verse</span><i /><span>0{activeIndex + 1} / 0{fandoms.length}</span></div>
       </section>
 
-      <footer className="site-footer">
-        <div className="footer-main">
-          <div className="footer-brand-block"><div className="footer-brand"><span className="brand-placeholder" aria-hidden="true" /> <strong>FANDOMVERSE</strong></div><p>Seven worlds. One place to<br /><em>keep your fandom alive.</em></p></div>
-          <div className="footer-column"><strong>Explore</strong><a href="#universe">Universes</a><a href="#featured-articles">Discover</a><a href="#events">Events</a><a href="#shop">Shop</a></div>
-          <div className="footer-column"><strong>Categories</strong><a href="#anime">Anime</a><a href="#gaming">Gaming</a><a href="#movies">Movies</a><a href="#manga">Manga</a></div>
-          <div className="footer-column footer-connect"><strong>Connect</strong><a href="#sign-in">Sign in</a><a href="#about">About us</a><a href="#contact">Contact</a><div className="social-links"><a href="#instagram" aria-label="Instagram">ig</a><a href="#x" aria-label="X">x</a><a href="#discord" aria-label="Discord">dc</a><a href="#youtube" aria-label="YouTube">yt</a></div></div>
-        </div>
-        <div className="footer-bottom"><span>© 2024 FandomVerse / Made for the obsessed</span><a href="#home">Back to the beginning ↑</a></div>
-      </footer>
+      <SiteFooter />
 
     </main>
   );

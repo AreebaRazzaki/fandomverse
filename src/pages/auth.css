@@ -1,0 +1,211 @@
+/* Shared by the sign-in and sign-up screens. Both keep the artwork on the
+   left and the form on the right, and both read the same in either theme. */
+.au-page {
+  --ink: #f7f4fb;
+  --ink-soft: #cdc3dd;
+  --muted: #a49bb0;
+  --line: rgba(255, 255, 255, .12);
+  --line-strong: rgba(255, 255, 255, .24);
+  --magenta: #ff2d95;
+  --cyan: #35e2f2;
+  --gold: #ffc247;
+  --panel: rgba(255, 255, 255, .05);
+  --danger: #ff6b6b;
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 40px;
+  overflow: hidden;
+  color: var(--ink);
+  background: #0a0710;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.au-page.theme-light {
+  --ink: #140a1c;
+  --ink-soft: #3b2c4c;
+  --muted: #5f5470;
+  --line: rgba(20, 10, 28, .14);
+  --line-strong: rgba(20, 10, 28, .26);
+  --magenta: #c9106f;
+  --cyan: #0d7f95;
+  --gold: #a9760a;
+  --panel: rgba(255, 255, 255, .74);
+  --danger: #b3261e;
+  background: #f7f3fa;
+}
+
+.au-glow { position: absolute; z-index: 0; border-radius: 50%; filter: blur(90px); pointer-events: none; }
+.au-glow-one { top: 140px; left: -160px; width: 460px; height: 460px; background: rgba(255, 45, 149, .26); }
+.au-glow-two { top: 620px; right: -160px; width: 480px; height: 480px; background: rgba(53, 226, 242, .22); }
+.theme-light .au-glow-one { background: rgba(201, 16, 111, .16); }
+.theme-light .au-glow-two { background: rgba(13, 127, 149, .16); }
+
+.au-page > *:not(.au-glow) { position: relative; z-index: 1; }
+
+/* ---------- split ---------- */
+
+.au-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 34px; align-items: center; max-width: 1180px; margin: 0 auto; padding: 128px 24px 40px; }
+
+.au-art { position: relative; display: grid; place-items: center; min-height: 460px; padding: 32px; overflow: hidden; border: 1px solid var(--line); border-radius: 30px 9px 30px 9px; background: radial-gradient(circle at 50% 34%, rgba(255, 45, 149, .2), transparent 68%), var(--panel); }
+.au-art-glow { position: absolute; width: 62%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(53, 226, 242, .34), transparent 66%); filter: blur(26px); }
+.au-art img { position: relative; max-width: 74%; max-height: 300px; object-fit: contain; filter: drop-shadow(0 24px 44px rgba(0, 0, 0, .6)); transform: rotate(-3deg); }
+.au-art-second { position: absolute; right: 8%; bottom: 6%; max-width: 46% !important; max-height: 170px !important; opacity: .8; transform: rotate(5deg) !important; }
+.au-art-copy { position: absolute; left: 32px; right: 32px; bottom: 28px; }
+.au-art-copy b { display: block; color: var(--ink); font-size: clamp(18px, 2.2vw, 26px); letter-spacing: .04em; }
+.au-art-copy ul { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 12px 0 0; padding: 0; list-style: none; }
+.au-art-copy li { color: var(--muted); font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.au-art-copy li::before { content: '\25B8'; margin-right: 6px; color: var(--cyan); }
+
+/* ---------- panel ---------- */
+
+.au-panel { padding: 34px 32px; border: 1px solid var(--line); border-radius: 30px 9px 30px 9px; background: var(--panel); }
+.au-kicker { margin: 0 0 12px; color: var(--cyan); font-family: Arial, sans-serif; font-size: 10px; font-weight: 900; letter-spacing: .34em; text-transform: uppercase; }
+.au-title { margin: 0; font-size: clamp(26px, 3.6vw, 44px); font-weight: 700; line-height: 1.04; }
+.au-title em { color: transparent; -webkit-text-stroke: 2px var(--magenta); font-style: normal; }
+.au-sub { margin: 14px 0 0; color: var(--muted); font-size: 14.5px; line-height: 1.7; }
+
+.au-form { display: grid; gap: 18px; margin-top: 28px; }
+.au-field { display: grid; gap: 8px; }
+.au-field label { color: var(--ink); font-family: Arial, sans-serif; font-size: 9.5px; font-weight: 900; letter-spacing: .2em; text-transform: uppercase; }
+.au-field input { width: 100%; padding: 14px 16px; border: 1px solid var(--line-strong); border-radius: 14px 4px 14px 4px; color: var(--ink); background: rgba(0, 0, 0, .28); font-family: inherit; font-size: 15px; transition: border-color 200ms ease, box-shadow 200ms ease; }
+.theme-light .au-field input { background: rgba(255, 255, 255, .9); }
+.au-field input::placeholder { color: var(--muted); opacity: .8; }
+.au-field input:focus { outline: none; border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(53, 226, 242, .2); }
+.au-field input[aria-invalid='true'] { border-color: var(--danger); }
+.au-error { margin: 0; color: var(--danger); font-family: Arial, sans-serif; font-size: 11.5px; font-weight: 700; line-height: 1.5; }
+
+.au-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+.au-check { display: inline-flex; align-items: center; gap: 9px; color: var(--muted); font-family: Arial, sans-serif; font-size: 11.5px; font-weight: 700; cursor: pointer; }
+.au-check input { width: 16px; height: 16px; accent-color: var(--magenta); }
+.au-link { padding: 0; border: 0; color: var(--cyan); background: none; font-family: Arial, sans-serif; font-size: 11.5px; font-weight: 900; letter-spacing: .08em; cursor: pointer; }
+.au-link:hover { color: var(--magenta); }
+
+.au-note { margin: 0; padding: 12px 14px; border-left: 2px solid var(--cyan); color: var(--muted); font-family: Arial, sans-serif; font-size: 11.5px; font-weight: 600; line-height: 1.6; }
+
+.au-cta { display: inline-block; justify-self: start; padding: 16px 30px; border: 0; border-radius: 14px 4px 14px 4px; color: #14060f; background: linear-gradient(120deg, var(--cyan), var(--magenta)); font-family: Arial, sans-serif; font-size: 10.5px; font-weight: 900; letter-spacing: .2em; text-decoration: none; text-transform: uppercase; cursor: pointer; transition: transform 200ms ease, box-shadow 200ms ease; }
+.theme-light .au-cta { color: #fff; }
+.au-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(255, 45, 149, .32); }
+
+.au-switch { margin: 24px 0 0; color: var(--muted); font-size: 14px; }
+.au-switch a { color: var(--cyan); font-weight: 700; }
+.au-switch a:hover { color: var(--magenta); }
+
+/* ---------- done ---------- */
+
+.au-done { display: grid; gap: 16px; justify-items: start; animation: au-done-in 480ms cubic-bezier(.16, .82, .25, 1); }
+.au-done-mark { display: grid; place-items: center; width: 62px; height: 62px; border-radius: 50%; color: #14060f; background: linear-gradient(130deg, var(--cyan), var(--magenta)); font-size: 28px; font-weight: 900; box-shadow: 0 0 0 10px rgba(53, 226, 242, .16); }
+.theme-light .au-done-mark { color: #fff; }
+.au-done h1 { margin: 0; font-size: clamp(22px, 3.2vw, 40px); font-weight: 700; line-height: 1.08; }
+.au-done p { margin: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.7; }
+
+@keyframes au-done-in { from { opacity: 0; transform: translateY(18px) scale(.97); } }
+
+/* ---------- form-only layout ----------
+   Sign-in and sign-up dropped the nav, the footer and the art panel. The form is
+   centred on its own, with the seven fandom images drifting past behind it as a
+   glitch band, and a lavender pattern over the light stage. */
+
+.au-page-strip { min-height: 100vh; padding: 0; }
+
+.au-strip {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 64px 24px;
+}
+
+.au-strip .au-panel {
+  width: min(480px, 100%);
+  padding: 40px 36px;
+  border: 1px solid var(--line-strong);
+  background: color-mix(in srgb, #0d0817, transparent 8%);
+  box-shadow: 0 40px 90px rgba(0, 0, 0, .6);
+}
+.theme-light .au-strip .au-panel { background: rgba(255, 255, 255, .9); box-shadow: 0 30px 70px rgba(60, 20, 90, .22); }
+
+/* Lavender geometric pattern behind the light stage. */
+.theme-light .au-page-strip::after {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  pointer-events: none;
+  content: '';
+  background:
+    radial-gradient(circle at 16% 12%, rgba(142, 120, 226, .22) 0%, transparent 58%),
+    radial-gradient(circle at 88% 16%, rgba(90, 160, 240, .18) 0%, transparent 60%),
+    repeating-linear-gradient(45deg, rgba(98, 78, 182, .1) 0 1px, transparent 1px 16px),
+    repeating-linear-gradient(-28deg, rgba(98, 78, 182, .08) 0 1px, transparent 1px 24px);
+}
+
+/* The seven fandom images, scrolling with a per-frame RGB split. */
+.au-glitch { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.au-glitch::after {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: linear-gradient(180deg, transparent 0%, #0a0710 16%, #0a0710 84%, transparent 100%);
+  content: '';
+}
+.theme-light .au-glitch::after { background: linear-gradient(180deg, transparent 0%, #f0e9ff 18%, #f0e9ff 82%, transparent 100%); }
+
+.au-glitch-strip { position: absolute; top: 50%; left: 0; display: flex; gap: 26px; transform: translateY(-50%); animation: au-drift 64s linear infinite; }
+.au-glitch-strip.is-dupe { animation-duration: 71s; animation-direction: reverse; opacity: .5; }
+
+.au-glitch-strip img {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+  opacity: .32;
+  filter: grayscale(.35) contrast(1.15);
+  animation: au-glitch-shift 5.5s steps(1, end) infinite;
+  animation-delay: var(--glitch-delay, 0s);
+}
+
+@keyframes au-drift { from { transform: translate(-14%, -50%); } to { transform: translate(-114%, -50%); } }
+
+/* A short RGB split plus slice offset, stepped so it reads as a glitch. */
+@keyframes au-glitch-shift {
+  0%, 86%, 100% { transform: translate(0, 0); filter: grayscale(.35) contrast(1.15); }
+  88% { transform: translate(-7px, 3px); filter: grayscale(0) contrast(1.6) hue-rotate(-18deg); }
+  90% { transform: translate(6px, -2px); filter: grayscale(0) contrast(1.5) hue-rotate(16deg); }
+  92% { transform: translate(-3px, 0); filter: grayscale(.2) contrast(1.3); }
+  94% { transform: translate(0, 0); }
+}
+
+.au-theme-toggle { position: absolute; top: 26px; right: 26px; z-index: 3; }
+.au-theme-toggle button {
+  padding: 11px 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px 4px 12px 4px;
+  color: var(--ink);
+  background: var(--panel);
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 200ms ease, border-color 200ms ease, background 200ms ease;
+}
+.au-theme-toggle button:hover { color: var(--cyan); border-color: var(--cyan); }
+.theme-light .au-theme-toggle button { background: rgba(255, 255, 255, .9); }
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 900px) {
+  .au-split { grid-template-columns: minmax(0, 1fr); padding: 116px 20px 30px; }
+  .au-art { min-height: 320px; }
+  .au-art img { max-height: 210px; }
+  .au-panel { padding: 26px 22px; }
+  .au-strip { padding: 84px 20px 40px; }
+  .au-strip .au-panel { padding: 30px 24px; }
+  .au-glitch-strip img { width: 200px; height: 200px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .au-done { animation: none; transition: none; }
+  .au-glitch-strip,
+  .au-glitch-strip img { animation: none; }
+}
