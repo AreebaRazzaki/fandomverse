@@ -440,6 +440,11 @@
   .nx-collection { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
+@media (max-width: 850px) and (min-width: 721px) {
+  .nx-sheet { grid-template-columns: 1fr; max-height: calc(100vh - 32px); }
+  .nx-sheet-poster { min-height: 260px; }
+}
+
 @media (max-width: 720px) {
   .nx-hero { padding: 96px 20px 26px; }
   .nx-hero-next { grid-template-columns: 56px minmax(0, 1fr); gap: 12px; padding: 10px 12px; }

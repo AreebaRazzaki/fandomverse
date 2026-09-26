@@ -541,6 +541,11 @@
   .pass-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
+@media (max-width: 850px) and (min-width: 721px) {
+  .pass-sheet { grid-template-columns: 1fr; max-height: calc(100vh - 32px); }
+  .pass-sheet-media { min-height: 260px; }
+}
+
 @media (max-width: 720px) {
   .pass-hero { padding: 104px 20px 46px; }
   .pass-hero-meta { gap: 20px; }

@@ -233,6 +233,16 @@
   .manga-copy-right { right: 4%; width: 25%; }
 }
 
+@media (max-width: 850px) and (min-width: 721px) {
+  .manga-hero { width: calc(100% - 48px); }
+  .manga-copy-left { left: 4%; width: 32%; }
+  .manga-copy-left h1 { font-size: 42px; }
+  .manga-stage { left: 30%; width: 48%; }
+  .manga-copy-right { right: 3%; width: 22%; }
+  .manga-copy-right h2 { font-size: 24px; }
+  .manga-detail { font-size: 11px; }
+}
+
 @media (max-width: 720px) {
   .manga-page { overflow-x: hidden; overflow-y: auto; }
   .manga-hero { width: calc(100% - 36px); height: 760px; min-height: 760px; margin: 12px 18px 24px; border-radius: 16px; }

@@ -33,6 +33,15 @@
 @keyframes kpop-noise { 0%, 100% { opacity: 0; } 15%, 33%, 58%, 82% { opacity: .72; transform: translateX(-8px); } 25%, 48%, 71% { opacity: .28; transform: translateX(10px); } }
 
 @media (max-width: 720px) { .kpop-page { overflow-x: hidden; overflow-y: auto; }.kpop-hero { height: calc(100svh - 124px); min-height: 610px; }.kpop-main-label { top: 17px; left: 5%; font-size: 8px; }.kpop-main-footer { right: 5%; bottom: 17px; left: 5%; font-size: 8px; }.kpop-canvas-scene { padding: 25px 18px; }.kpop-canvas-topline { top: 9px; right: 18px; left: 18px; font-size: 8px; }.kpop-concept-copy { top: 12%; left: 8%; }.kpop-concept-copy h1 { font-size: 47px; }.kpop-concept-copy p { font-size: 10px; }.kpop-secondary-image { right: 3%; left: auto; width: 61%; height: 80%; }.kpop-canvas-stamp { top: 17%; right: 7%; font-size: 8px; }.kpop-canvas-note { right: 6%; bottom: 19%; font-size: 8px; }.kpop-canvas-side-code { display: none; }.kpop-canvas-bottom { right: 6%; bottom: 4%; left: 6%; font-size: 7px; }.kpop-scene-progress { right: 5%; bottom: 3%; } }
+
+@media (max-width: 850px) and (min-width: 721px) {
+  .kpop-hero { min-height: 620px; }
+  .kpop-main-side-copy { top: 14%; left: 4%; }
+  .kpop-main-side-copy h1 { font-size: clamp(34px, 5vw, 52px); }
+  .kpop-main-side-copy p, .kpop-main-side-tags { display: none; }
+  .kpop-main-frame { left: 20%; }
+  .kpop-canvas-side-code, .kpop-canvas-stamp { display: none; }
+}
 @media (prefers-reduced-motion: reduce) { .kpop-page *, .kpop-page *::before, .kpop-page *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
 
 /* First scene: patterned concept board with the generated hero art framed inside it. */

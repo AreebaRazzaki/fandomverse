@@ -574,6 +574,10 @@
   .editorial-note { padding: 24px 18px 50px; }
 }
 
+@media (max-width: 500px) {
+  .editorial-head h1 { flex-wrap: wrap; font-size: clamp(21px, 9vw, 42px); white-space: normal; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .head-marquee-track,
   .crystal-facets,

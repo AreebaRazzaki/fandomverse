@@ -124,6 +124,14 @@
   .comics-art-wrap { left: -3%; width: 72%; }
 }
 
+@media (max-width: 850px) and (min-width: 721px) {
+  .comics-hero { min-height: 640px; }
+  .comics-copy { top: 10%; right: 6%; width: 40%; }
+  .comics-copy h1 { font-size: clamp(42px, 6vw, 64px); }
+  .comics-description { font-size: 12px; }
+  .comics-left-label { display: none; }
+}
+
 @media (max-width: 720px) {
   .comics-page { overflow-x: hidden; overflow-y: auto; }
   .comics-hero { height: calc(100svh - 124px); min-height: 720px; }

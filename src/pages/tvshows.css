@@ -82,6 +82,14 @@
   .tvshows-side-code { right: 2%; }
 }
 
+@media (max-width: 850px) and (min-width: 721px) {
+  .tvshows-hero { min-height: 620px; }
+  .tvshows-copy { top: 8%; left: 5%; width: 48%; padding: 22px 24px 26px 20px; }
+  .tvshows-copy h1 { font-size: clamp(42px, 6vw, 64px); }
+  .tvshows-description { font-size: 12px; }
+  .tvshows-side-code { display: none; }
+}
+
 @media (max-width: 720px) {
   .tvshows-page { overflow-x: hidden; overflow-y: auto; }
   .tvshows-hero { height: calc(100svh - 124px); min-height: 760px; }

@@ -312,6 +312,14 @@
   .anime-stage-shape { transform: translateY(3%) rotate(-3deg); }
 }
 
+@media (max-width: 900px) and (min-width: 721px) {
+  html:has(.anime-page),
+  body:has(.anime-page) { overflow-x: hidden; overflow-y: auto; }
+  .anime-page { height: auto; min-height: 100svh; overflow: visible; }
+  .anime-hero { height: auto; min-height: calc(100svh - 110px); overflow: visible; }
+  .anime-stage-image, .anime-glitch-copy { height: 96%; }
+}
+
 /* Blueprint details keep the grey canvas alive without competing with the character. */
 .anime-background-system { position: absolute; z-index: 1; inset: 0; overflow: hidden; pointer-events: none; }
 .anime-bg-icon { position: absolute; display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid color-mix(in srgb, var(--anime-paper), transparent 67%); border-radius: 50%; color: var(--anime-accent); font-family: Arial, sans-serif; font-size: 18px; font-weight: 800; opacity: .7; }

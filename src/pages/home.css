@@ -2121,9 +2121,19 @@ h1 {
 }
 
 @media (max-width: 1100px) {
-  .portal-field { grid-template-columns: repeat(4, minmax(150px, 1fr)); row-gap: 28px; }
+  .portal-field { grid-template-columns: repeat(3, minmax(120px, 1fr)); row-gap: 28px; }
   .portal-card { height: 340px; }
   .portal-card:nth-of-type(n) { --portal-offset: 0px; }
+}
+
+@media (max-width: 850px) and (min-width: 721px) {
+  .universe-section { padding-right: 28px; padding-left: 28px; }
+  .portal-field { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .portal-card { height: 310px; }
+  .spotlight-section { min-height: 0; padding-top: 76px; padding-bottom: 84px; }
+  .spotlight-frame { grid-template-columns: 1fr 1fr; min-height: 440px; }
+  .spotlight-art { min-height: 440px; }
+  .orbit-section { min-height: 700px; }
 }
 
 @media (max-width: 720px) {
